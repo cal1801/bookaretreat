@@ -38,7 +38,7 @@
 
   <%= f.fields_for :images do |builder| %>
     <% if builder.object.new_record? %>
-      <%= builder.hidden_field :image_type, :value => "bsy"%>
+      <%= builder.hidden_field :image_type, :value => "bar"%>
       <div class="field">
         <%= builder.label :image_url, "Image File" %>
         <%= builder.file_field :image_url %>

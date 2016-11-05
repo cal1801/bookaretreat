@@ -32,7 +32,7 @@
     <div class="col-xs-12 camp-container">
       <div class="row camp-images">
         <%if @camp.pccca_member%>
-          <%images = @camp.images.reject{|i| i.image_type != "bsy"}.take(3)%>
+          <%images = @camp.images.reject{|i| i.image_type != "bar"}.take(3)%>
           <%images.each do |image|%>
             <div class="col-md-3 camp-photo-wrapper">
               <div style="background-image: url('<%=asset_path image.image_url%>');" class="camp-photo">

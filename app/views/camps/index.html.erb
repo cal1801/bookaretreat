@@ -22,7 +22,7 @@
         <%header = '<h2 class="results-text">Featured ' + camp_plural + '</h2>'%>
         <%=header.html_safe if @camps.reject{|c| c.pccca_member == false}.count > 0%>
         <% @camps.reject{|c| c.pccca_member == false}.each do |camp| %>
-          <%image = Image.where("camp_id = ? and image_type = 'bsy'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bsy'", camp.id)%>
+          <%image = Image.where("camp_id = ? and image_type = 'bar'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bar'", camp.id)%>
           <div class="col-md-6 col-sm-12" style="margin-bottom:30px">
             <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url})"%>
             <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address_id%>" style="<%=background%>">
