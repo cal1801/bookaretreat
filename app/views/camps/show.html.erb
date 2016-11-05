@@ -1,0 +1,56 @@
+<%content_for :head do%>
+  <%= stylesheet_link_tag 'simple-ripple-effect'%>
+<%end%>
+
+<div class="row full-width fixed" style="top: 0; z-index: 10">
+  <div class="col-lg-12 top-bar">
+    <div class="col-lg-4 col-xs-5 ">
+      <%=link_to (image_tag 'bar'), root_path%>
+    </div>
+    <div class="col-lg-8 col-xs-7 menu">
+      <h3><%=link_to '&#8610; Back to Search'.html_safe, root_path%></h3>
+    </div>
+  </div>
+</div><!--end top-bar-->
+
+<div class="container show">
+  <div class="row">
+    <div class="col-xs-12 camp-container">
+      <div class="row">
+        <div class="col-md-10 col-xs-8">
+          <h1 class="camp-title"><%= @camp.name %></h1>
+          <%= @camp.address.try(:city) %>, <%= @camp.address.try(:state) %><br />
+        </div>
+        <div class="col-md-2 col-xs-4 text-right">
+          <%= @camp.pccca_member ? (link_to "#{image_tag('member_pccca.png', {:class => 'pccca'})}".html_safe, 'http://www.pccca.net', :class => "pccca-link") : ''%>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 camp-container">
+      <p class="description"><%=CampInfo.where(camp_id: @camp.id, camp_type: 'pccca').first.description.html_safe %></p>
+    </div>
+    <div class="col-xs-12 camp-container">
+      <div class="row camp-images">
+        <%if @camp.pccca_member%>
+          <%images = @camp.images.reject{|i| i.image_type != "bsy"}.take(3)%>
+          <%images.each do |image|%>
+            <div class="col-md-3 camp-photo-wrapper">
+              <div style="background-image: url('<%=asset_path image.image_url%>');" class="camp-photo">
+              </div>
+            </div>
+          <%end%>
+        <%end%>
+        <div class="col-md-3 website">
+          <%=link_to "Learn more about #{@camp.name}", @camp.web_url, {:class => "ripple-effect details", :"data-ripple-color" => "#F69050"}%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<script src="js/simple-ripple-effect.js"></script>
+
+<!--<%#= link_to 'Edit', edit_camp_path(@camp) %> |
+<%#= link_to 'Back', camps_path %>-->

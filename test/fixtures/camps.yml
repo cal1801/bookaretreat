@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 
+  address_id: 1
+  contact_id: 1
+  web_url: MyString
+  pccca_member: false
+  site_setup_id: 
+
+two:
+  name: 
+  address_id: 1
+  contact_id: 1
+  web_url: MyString
+  pccca_member: false
+  site_setup_id: 

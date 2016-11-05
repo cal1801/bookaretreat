@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Camp Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @camp_types.each do |camp_type| %>
+      <tr>
+        <td><%= camp_type.name %></td>
+        <td><%= link_to 'Show', camp_type %></td>
+        <td><%= link_to 'Edit', edit_camp_type_path(camp_type) %></td>
+        <td><%= link_to 'Destroy', camp_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Camp type', new_camp_type_path %>

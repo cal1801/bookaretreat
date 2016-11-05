@@ -1,0 +1,52 @@
+<%= form_for @camp, html: {multipart: true} do |f| %>
+  <% if @camp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@camp.errors.count, "error") %> prohibited this camp from being saved:</h2>
+
+      <ul>
+      <% @camp.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address_id %><br>
+    <%= f.number_field :address_id %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_id %><br>
+    <%= f.number_field :contact_id %>
+  </div>
+  <div class="field">
+    <%= f.label :web_url %><br>
+    <%= f.text_field :web_url %>
+  </div>
+  <div class="field">
+    <%= f.label :pccca_member %><br>
+    <%= f.check_box :pccca_member %>
+  </div>
+  <div class="field">
+    <%= f.label :site_setup_id %><br>
+    <%= f.text_field :site_setup_id %>
+  </div>
+
+  <%= f.fields_for :images do |builder| %>
+    <% if builder.object.new_record? %>
+      <%= builder.hidden_field :image_type, :value => "bsy"%>
+      <div class="field">
+        <%= builder.label :image_url, "Image File" %>
+        <%= builder.file_field :image_url %>
+      <div class="field">
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

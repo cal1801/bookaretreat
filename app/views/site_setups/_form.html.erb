@@ -1,0 +1,37 @@
+<%= form_for(@site_setup) do |f| %>
+  <% if @site_setup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@site_setup.errors.count, "error") %> prohibited this site_setup from being saved:</h2>
+
+      <ul>
+      <% @site_setup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :hotel %><br>
+    <%= f.number_field :hotel %>
+  </div>
+  <div class="field">
+    <%= f.label :group_local_bath %><br>
+    <%= f.number_field :group_local_bath %>
+  </div>
+  <div class="field">
+    <%= f.label :group_sep_bath %><br>
+    <%= f.number_field :group_sep_bath %>
+  </div>
+  <div class="field">
+    <%= f.label :rustic %><br>
+    <%= f.number_field :rustic %>
+  </div>
+  <div class="field">
+    <%= f.label :rv %><br>
+    <%= f.number_field :rv %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

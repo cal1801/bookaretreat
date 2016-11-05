@@ -1,0 +1,1 @@
+json.array! @camp_types, partial: 'camp_types/camp_type', as: :camp_type

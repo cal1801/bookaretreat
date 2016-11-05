@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hotel:</strong>
+  <%= @site_setup.hotel %>
+</p>
+
+<p>
+  <strong>Group local bath:</strong>
+  <%= @site_setup.group_local_bath %>
+</p>
+
+<p>
+  <strong>Group sep bath:</strong>
+  <%= @site_setup.group_sep_bath %>
+</p>
+
+<p>
+  <strong>Rustic:</strong>
+  <%= @site_setup.rustic %>
+</p>
+
+<p>
+  <strong>Rv:</strong>
+  <%= @site_setup.rv %>
+</p>
+
+<%= link_to 'Edit', edit_site_setup_path(@site_setup) %> |
+<%= link_to 'Back', site_setups_path %>

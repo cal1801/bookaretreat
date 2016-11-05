@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Site Setups</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hotel</th>
+      <th>Group local bath</th>
+      <th>Group sep bath</th>
+      <th>Rustic</th>
+      <th>Rv</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @site_setups.each do |site_setup| %>
+      <tr>
+        <td><%= site_setup.hotel %></td>
+        <td><%= site_setup.group_local_bath %></td>
+        <td><%= site_setup.group_sep_bath %></td>
+        <td><%= site_setup.rustic %></td>
+        <td><%= site_setup.rv %></td>
+        <td><%= link_to 'Show', site_setup %></td>
+        <td><%= link_to 'Edit', edit_site_setup_path(site_setup) %></td>
+        <td><%= link_to 'Destroy', site_setup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Site setup', new_site_setup_path %>

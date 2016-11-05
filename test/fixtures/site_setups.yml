@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hotel: 1
+  group_local_bath: 1
+  group_sep_bath: 1
+  rustic: 1
+  rv: 1
+
+two:
+  hotel: 1
+  group_local_bath: 1
+  group_sep_bath: 1
+  rustic: 1
+  rv: 1

@@ -1,0 +1,113 @@
+<script src="//maps.google.com/maps/api/js?key=AIzaSyDBBGiFgEnyUDYe4V-751ptbtLIgR7dpMU"></script>
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+
+<p id="notice"><%= notice %></p>
+
+<div class="row full-width fixed" style="top: 0; z-index: 10">
+  <div class="col-lg-12 top-bar">
+    <div class="col-lg-4 col-xs-5 ">
+      <%=link_to (image_tag 'bar'), root_path%>
+    </div>
+    <div class="col-lg-8 col-xs-7 menu">
+      <h3><%=link_to '&#8610; Back to Search'.html_safe, root_path%></h3>
+    </div>
+  </div>
+</div><!--end top-bar-->
+
+<div class="container results">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="row featured">
+        <%camp_plural = @camps.reject{|c| c.pccca_member == false}.count > 1 ? "Camp".pluralize : "Camp"%>
+        <%header = '<h2 class="results-text">Featured ' + camp_plural + '</h2>'%>
+        <%=header.html_safe if @camps.reject{|c| c.pccca_member == false}.count > 0%>
+        <% @camps.reject{|c| c.pccca_member == false}.each do |camp| %>
+          <%image = Image.where("camp_id = ? and image_type = 'bsy'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bsy'", camp.id)%>
+          <div class="col-md-6 col-sm-12" style="margin-bottom:30px">
+            <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url})"%>
+            <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address_id%>" style="<%=background%>">
+              <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
+              <%#url = asset_path image.first.image_url if !image.blank?%>
+              <%#=image_tag url%>
+
+              <h4 class="name"><%=camp.name%></h4>
+              <p class="city"><%=camp.address.city%>, <%=camp.address.state%></p>
+              <%= link_to 'Find Out More', camp, :class => "details results ripple-effect", :"data-ripple-color" => "#871084", :"data-ripple-limit" => ".card-container"%>
+            </div>
+          </div><!-- ending of result -->
+        <%end%>
+      </div>
+      <div class="row">
+        <hr style="padding: 15px; border-top: 1px solid gray;" />
+        <% @camps.reject{|c| c.pccca_member == true}.each do |camp| %>
+          <%image = Image.where("camp_id = ? and image_type = 'pccca'", camp.id)%>
+          <div class="col-md-6 col-sm-12" style="margin-bottom:30px">
+            <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url})"%>
+            <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address_id%>" style="<%=background%>">
+              <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
+              <%#url = "site_images/"+image.first.image_url if !image.blank?%>
+              <%#=image_tag url%>
+
+              <h4 class="name"><%=camp.name%></h4>
+              <p class="city"><%=camp.address.city%>, <%=camp.address.state%></p>
+              <%= link_to 'Find Out More', camp, :class => "details results ripple-effect", :"data-ripple-color" => "#871084", :"data-ripple-limit" => ".card-container"%>
+            </div>
+          </div><!-- ending of result -->
+        <%end%>
+      </div>
+      <div class="row">
+        <div style="height: 50px"></div>
+        <h2 class="results-text">Camps just outside your search area</h2>
+        <% @farther_camps.each do |camp| %>
+          <%image = Image.where("camp_id = ? and image_type = 'pccca'", camp.id)%>
+          <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom:30px">
+            <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url})"%>
+            <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address_id%>" style="<%=background%>">
+              <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
+              <%#url = image.first.image_url if !image.blank?%>
+              <%#=image_tag url%>
+
+              <h4 class="name"><%=camp.name%></h4>
+              <p class="city"><%=camp.address.city%>, <%=camp.address.state%></p>
+              <%= link_to 'Find Out More', camp, :class => "details results ripple-effect", :"data-ripple-color" => "#871084", :"data-ripple-limit" => ".card-container"%>
+            </div>
+          </div><!-- ending of result -->
+        <%end%>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="affix">
+        <div id="map" style='height: 75vh;'></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<script type="text/javascript">
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+
+  _.each(<%=raw @hash.to_json %>, function(json, index){
+    json.marker = markers[index];
+    $(".location-" + json.id).on('mouseover', function() {
+      handler.getMap().setZoom(9);
+      json.marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+      json.marker.panTo();
+      google.maps.event.trigger(json.marker.getServiceObject(), 'click');
+    });
+    $(".location-" + json.id).on('mouseout', function() {
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      json.marker.infowindow.close()
+    });
+  });
+
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>
+
+<%#= link_to 'New Camp', new_camp_path %>

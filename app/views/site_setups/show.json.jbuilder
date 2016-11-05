@@ -1,0 +1,1 @@
+json.partial! "site_setups/site_setup", site_setup: @site_setup

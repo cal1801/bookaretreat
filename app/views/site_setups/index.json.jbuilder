@@ -1,0 +1,1 @@
+json.array! @site_setups, partial: 'site_setups/site_setup', as: :site_setup

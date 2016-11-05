@@ -1,0 +1,1 @@
+json.partial! "camp_types/camp_type", camp_type: @camp_type

@@ -1,0 +1,355 @@
+/* =============================================================================
+  CONTENT
+============================================================================= */
+body {
+  background-color: #eff0f0;
+}
+
+body, h1, h2, h3, h4, h5, h6, .btn {
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  text-rendering: optimizeLegibility;
+}
+
+.full-width {
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   max-width: initial;
+}
+
+.gap {
+  height: 15px;
+}
+
+.fixed {
+    position: fixed;
+    top: 20px;
+}
+
+.container.results, .container.show {
+  margin-top: 200px;
+}
+
+a, a:visited {
+  color: black;
+}
+
+a:hover {
+  background: transparent;
+  color: inherit;
+}
+
+@media (max-width: 767px) {
+  .container.results, .container.show {
+    margin-top: 100px;
+  }
+}
+
+/* =============================================================================
+  Search Page
+============================================================================= */
+
+.content {
+  position: relative;
+  /*top: 30%;*/
+  z-index: 3;
+  margin: 0 auto;
+  max-width: 1000px;
+  /*text-align: center;*/
+}
+
+.intro-text {
+  height: 150px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+h1 {
+  /*font-family: 'Fjalla One', sans-serif;*/
+  color: #007bbc;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+label {
+  font-weight: normal
+}
+
+input {
+  border: 1px solid #385273;
+  font-size: 18px;
+  background: rgba(255,255,255,.5);
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  padding: 15px;
+  margin-left: -15px;
+}
+
+.btn {
+  margin-top: 30px;
+  padding: 10px 30px;
+  background: #385273;
+  color: #f2c84b;
+  box-shadow: 0 5px #141d29;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translate(0, 5px);
+  box-shadow: none;
+}
+
+.submit {
+  margin-top: 15px;
+  white-space: normal;
+  border: none;
+  background: #EE6C26;
+  box-shadow: 0px 4px #9E4F24;
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .search-prompt {
+    font-size: 26px;
+  }
+  input {
+    font-size: 15px;
+  }
+  video {
+    display: none;
+  }
+}
+
+/* =============================================================================
+  Results Page
+============================================================================= */
+
+.top-bar {
+  background: #5B9BD5;
+  height: 150px;
+  margin-bottom: 15px;
+}
+
+.search.top-bar {
+  height: 215px;
+}
+
+.top-bar img {
+  width: auto;
+  max-height: 150px;
+  float: left;
+}
+
+.top-bar .menu {
+  text-align: right;
+  padding-top: 43px;
+}
+
+@media (max-width: 767px) {
+  .top-bar {
+    height: 85px;
+  }
+
+  .top-bar img {
+    max-width: 105px
+  }
+
+  .top-bar h3 {
+    font-size: 15px;
+  }
+
+  .top-bar .menu {
+    padding-top: 11px;
+  }
+
+  .container.results, .container.show {
+    margin-top: 100px;
+  }
+}
+
+/*======= Cards ===========*/
+.results-text {
+  color: black;
+  margin-top: 0;
+  margin-bottom: 30px
+}
+
+.card-container {
+  background: #fff;
+  box-shadow: 3px 3px 5px #000;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.card-container.no-image {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#34a4ca+0,59d7dd+28,a8f2f0+59,d0f8ef+84,d6f6e1+100 */
+  background: #34a4ca; /* Old browsers */
+  background: -moz-linear-gradient(45deg,  #8fb8ee 0%, #cbe2f4 40%, #dbe5eb 63%, #f9d3b8 83%, #e0b2a3 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(45deg,  #8fb8ee 0%, #cbe2f4 40%, #dbe5eb 63%, #f9d3b8 83%, #e0b2a3 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(45deg,  #8fb8ee 0%, #cbe2f4 40%, #dbe5eb 63%, #f9d3b8 83%, #e0b2a3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8fb8ee', endColorstr='#e0b2a3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.card-container img {
+  position: absolute;
+  padding: 0 15px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+}
+
+.card-overlay {
+    background: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: .4;
+}
+
+.city, .name {
+  position: relative;
+  z-index: 2;
+  color: #385273;
+  padding: 10px 15px;
+  text-shadow: 0 0 10px white;
+}
+
+.name {
+  margin-bottom: 7px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.details {
+  display: table-cell;
+  position: relative;
+  bottom: 0;
+  padding: 15px;
+  font-size: 1.3em;
+  color: #fff !important;
+  background: #EE6C26;
+  vertical-align: middle;
+}
+
+.details.results {
+  display: block;
+  background-color: #EE6C26;
+}
+
+.details.results:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #b3511d;
+}
+
+/*======= Map ===========*/
+/*.map {
+  overflow: hidden;
+  padding:0 15px;
+}*/
+
+#map
+{
+  width:400px;
+  height:400px;
+  float:left;
+  margin-bottom:0.93em;
+}
+
+@media (max-width: 767px) {
+  .results-text {
+    padding-left: 15px;
+  }
+
+  .card-overlay {
+    opacity: .5;
+  }
+
+  #map {
+    display: none;
+  }
+}
+
+/* =============================================================================
+  Camp Listing Page
+============================================================================= */
+
+.camp-container {
+  background: white;
+  padding-bottom: 15px;
+}
+
+.contact-info {
+  padding-bottom: 15px;
+}
+
+.website {
+  /*position: inherit;
+  display: initial;*/
+  display: table;
+  text-align: center;
+  height: 200px;
+}
+
+.website .details:hover {
+  color: #f2c84b;
+  text-decoration: none;
+  background-color: #c1581f;
+}
+
+.pccca {
+  padding-top: 15px;
+}
+
+.pccca-link {
+  float: right;
+}
+
+a.pccca-link:hover {
+  background-color: transparent;
+}
+
+.camp-photo-wrapper {
+  min-height: 200px
+}
+
+.camp-photo {
+  background-size: cover;
+  background-position: center;
+  min-height: 200px
+}
+
+/*.camp-images img {
+  width: 100%;
+}*/
+
+a.details:visited, a.details.results:visited {
+  color: #f2c84b;
+}
+
+@media (max-width: 767px) {
+  .camp-title {
+    font-size: 20px;
+  }
+  .pccca {
+    width: 100%;
+  }
+  .camp-photo-wrapper {
+    margin-bottom: 10px;
+  }
+}
