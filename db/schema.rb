@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027032806) do
+ActiveRecord::Schema.define(version: 20161105200336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,9 +59,8 @@ ActiveRecord::Schema.define(version: 20161027032806) do
     t.integer  "contact_id"
     t.string   "web_url"
     t.boolean  "pccca_member"
-    t.integer  "site_setup_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "phone_number"
   end
 
@@ -76,13 +75,13 @@ ActiveRecord::Schema.define(version: 20161027032806) do
 
   create_table "images", force: :cascade do |t|
     t.integer  "camp_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "image_type"
-    t.string   "url_file_name"
-    t.string   "url_content_type"
-    t.integer  "url_file_size"
-    t.datetime "url_updated_at"
+    t.string   "image_url_file_name"
+    t.string   "image_url_content_type"
+    t.integer  "image_url_file_size"
+    t.datetime "image_url_updated_at"
   end
 
   create_table "site_setups", force: :cascade do |t|
@@ -93,6 +92,7 @@ ActiveRecord::Schema.define(version: 20161027032806) do
     t.integer  "rv"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "camp_id"
   end
 
 end

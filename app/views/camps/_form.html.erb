@@ -31,19 +31,36 @@
     <%= f.label :pccca_member %><br>
     <%= f.check_box :pccca_member %>
   </div>
-  <div class="field">
-    <%= f.label :site_setup_id %><br>
-    <%= f.text_field :site_setup_id %>
-  </div>
+
+  <%= f.fields_for :site_setup do |builder| %>
+    <div class="field">
+      <%= builder.label :hotel, "Number of Hotel Rooms" %>
+      <%= builder.text_field :hotel %>
+    </div>
+    <div class="field">
+      <%= builder.label :group_local_bath, "Number of Group Rooms with Private Bath" %>
+      <%= builder.text_field :group_local_bath %>
+    </div>
+    <div class="field">
+      <%= builder.label :group_sep_bath, "Number of Group Rooms with Shared Bath" %>
+      <%= builder.text_field :group_sep_bath %>
+    </div>
+    <div class="field">
+      <%= builder.label :rustic, "Number of Rustic/Tent sites" %>
+      <%= builder.text_field :rustic %>
+    </div>
+    <div class="field">
+      <%= builder.label :rv, "Number of RV spots" %>
+      <%= builder.text_field :rv %>
+    </div>
+  <% end %>
 
   <%= f.fields_for :images do |builder| %>
-    <% if builder.object.new_record? %>
-      <%= builder.hidden_field :image_type, :value => "bar"%>
-      <div class="field">
-        <%= builder.label :image_url, "Image File" %>
-        <%= builder.file_field :image_url %>
-      <div class="field">
-    <% end %>
+    <%= builder.hidden_field :image_type, :value => "bar"%>
+    <div class="field">
+      <%= builder.label :image_url, "Image File" %>
+      <%= builder.file_field :image_url %>
+    </div>
   <% end %>
 
   <div class="actions">

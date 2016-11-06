@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :camps do
     collection do
       get 'search'
+      get 'results'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

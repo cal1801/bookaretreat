@@ -3,13 +3,17 @@ class CampsController < ApplicationController
 
   # GET /camps
   # GET /camps.json
-  def index
+  def results
     search_location = params[:city] + params[:state]
     addresses = Address.near(search_location, 150).order("distance")
-    @camps = Camp.where('address_id IN (?)', addresses.map(&:id)).sort_by{|c| addresses.map(&:id).index c.address_id}
+    @camps = Camp.where(address_id: addresses.map(&:id)).sort_by{|c| addresses.map(&:id).index c.address_id}
+    @camps.select!{|c| c.site_setup.hotel >= params[:hotel].to_i &&  c.site_setup.group_local_bath >= params[:group_local_bath].to_i &&  c.site_setup.group_sep_bath >= params[:group_sep_bath].to_i &&  c.site_setup.rustic >= params[:rustic].to_i &&  c.site_setup.rv >= params[:rv].to_i}
+    addresses = Address.where(id: @camps.map(&:address_id))
 
     farther_addresses = Address.near(search_location, 300).order("distance")
     @farther_camps = Camp.where('address_id IN (?)', farther_addresses.map(&:id)).sort_by{|c| farther_addresses.map(&:id).index c.address_id} - @camps
+    @farther_camps.select!{|c| c.site_setup.hotel >= params[:hotel].to_i &&  c.site_setup.group_local_bath >= params[:group_local_bath].to_i &&  c.site_setup.group_sep_bath >= params[:group_sep_bath].to_i &&  c.site_setup.rustic >= params[:rustic].to_i &&  c.site_setup.rv >= params[:rv].to_i}
+    farther_addresses = Address.where(id: @farther_camps.map(&:address_id))
 
     all_addresses = addresses + farther_addresses
     @hash = Gmaps4rails.build_markers(all_addresses) do |address, marker|
@@ -25,6 +29,10 @@ class CampsController < ApplicationController
   def show
   end
 
+  def index
+    @camps = Camp.all
+  end
+
   # GET /camps/new
   def new
     @camp = Camp.new
@@ -33,7 +41,8 @@ class CampsController < ApplicationController
 
   # GET /camps/1/edit
   def edit
-    3.times {@camp.images.build}
+    @camp.build_site_setup if @camp.site_setup.blank?
+    3.times {@camp.images.build} if @camp.images.blank?
   end
 
   # POST /camps
@@ -77,7 +86,6 @@ class CampsController < ApplicationController
   end
 
   def search
-
   end
 
   private
@@ -88,6 +96,6 @@ class CampsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def camp_params
-      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, images_attributes: [:image_url, :image_type, :camp_id])
+      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, images_attributes: [:id, :image_url, :image_type, :camp_id], site_setup_attributes: [:id, :hotel, :group_local_bath, :group_sep_bath, :rustic, :rv])
     end
 end
