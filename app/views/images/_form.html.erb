@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :camp_id %><br>
-    <%= f.select :camp_id, options_from_collection_for_select(Camp.all, 'id', 'name') %>
+    <%= f.select :camp_id, options_from_collection_for_select(Camp.all, 'id', 'id') %>
   </div>
   <div class="field">
     <%= f.label :image_type %><br>
