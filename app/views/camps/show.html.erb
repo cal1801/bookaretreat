@@ -33,6 +33,16 @@
       <div class="row camp-images">
         <%if @camp.pccca_member%>
           <%images = @camp.images.reject{|i| i.image_type != "bar"}.take(3)%>
+          <%counts = 3-images.count%>
+          <%(1..counts).each do |count|%>
+            <%if count == 1%>
+              <%images << Image.where(camp_id: @camp.id, image_type: 'pccca').first%>
+            <%elsif count == 2%>
+              <%images << Image.where(camp_id: @camp.id, image_type: 'pccca').second%>
+            <%else%>
+              <%images << Image.where(camp_id: @camp.id, image_type: 'pccca').third%>
+            <%end%>
+          <%end%>
           <%images.each do |image|%>
             <div class="col-md-3 camp-photo-wrapper">
               <div style="background-image: url('<%=asset_path image.image_url(:medium)%>');" class="camp-photo">
