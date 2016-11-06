@@ -353,3 +353,11 @@ a.details:visited, a.details.results:visited {
     margin-bottom: 10px;
   }
 }
+
+
+/* =============================================================================
+  Image List Page
+============================================================================= */
+.images:nth-child(even) {
+  background-color: white;
+}
