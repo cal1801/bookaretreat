@@ -158,11 +158,20 @@ input[type="submit"] {
 
 @media (max-width: 767px) {
   .top-bar {
-    height: 85px;
+    height: 50px;
   }
 
   .top-bar img {
-    max-width: 105px
+    height: 50px;
+  }
+
+  .search.top-bar {
+    height: 120px;
+  }
+
+  .search.top-bar img {
+    max-width: 90vw;
+    height: auto;
   }
 
   .top-bar h3 {
@@ -170,11 +179,11 @@ input[type="submit"] {
   }
 
   .top-bar .menu {
-    padding-top: 11px;
+    padding-top: 0px;
   }
 
   .container.results, .container.show {
-    margin-top: 100px;
+    margin-top: 50px;
   }
 }
 
@@ -274,6 +283,7 @@ input[type="submit"] {
 @media (max-width: 767px) {
   .results-text {
     padding-left: 15px;
+    margin: 15px 0 15px;
   }
 
   .card-overlay {

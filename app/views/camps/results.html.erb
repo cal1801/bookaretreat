@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-lg-8">
       <div class="row featured">
-        <%camp_plural = @camps.reject{|c| c.pccca_member == false}.count > 1 ? "Camp".pluralize : "Camp"%>
+        <%camp_plural = @camps.reject{|c| c.pccca_member == false}.count > 1 ? "Center".pluralize : "Center"%>
         <%header = '<h2 class="results-text">Featured ' + camp_plural + '</h2>'%>
         <%=header.html_safe if @camps.reject{|c| c.pccca_member == false}.count > 0%>
         <% @camps.reject{|c| c.pccca_member == false}.each do |camp| %>

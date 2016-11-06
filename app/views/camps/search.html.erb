@@ -1,7 +1,7 @@
 <div class="row full-width">
   <div class="large-12 columns search top-bar">
     <div class="content">
-      <div class="row">
+      <div class="row" style="margin: 0 15px">
         <div class="large-12 columns">
           <%=image_tag 'bar', :class => "float: left"%>
             <p style="float: left;">Find a retreat location for your next event for free.  We offer a list of conference rental and retreat rental locations at camps and conference centers throughout North America.</p>
@@ -11,16 +11,16 @@
   </div>
 </div><!--end top-bar-->
 
-<div class="content row">
+<div class="content row" style="margin: 0 30px">
   <%=form_tag results_camps_path, :id => 'SearchForm', :method => 'get' do %>
     <div class="row">
-      <div class="col-lg-6 form-group" style="padding-left: 0">
+      <div class="col-lg-6 col-xs-12 form-group" style="padding-left: 0">
         <%=label_tag "city", "City"%><br />
-        <%=text_field_tag "city",'', :class => "col-lg-12"%>
+        <%=text_field_tag "city",'', :class => "col-xs-12"%>
       </div>
-      <div class="col-lg-6 form-group" style="padding-left: 0">
+      <div class="col-lg-6 col-xs-12 form-group" style="padding-left: 0">
         <%=label_tag "state", "State"%><br />
-        <%=text_field_tag "state",'',:class => "col-lg-12"%>
+        <%=text_field_tag "state",'',:class => "col-xs-12"%>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
         <label>Hotel/Motel-style Housing with private bathrooms</label>
       </div>
       <div class="col-lg-2 end">
-        <input type="number" class="" name="hotel" min="0" max="100" />
+        <input type="number" class="col-xs-12" name="hotel" min="0" />
       </div>
     </div>
     <div class="row">
@@ -39,7 +39,7 @@
         <label>Group Housing with shared bathrooms in the same building</label>
       </div>
       <div class="col-lg-2 end">
-        <input type="number" class="" name="group_local_bath" min="0" max="100" />
+        <input type="number" class="col-xs-12" name="group_local_bath" min="0" />
       </div>
     </div>
     <div class="row">
@@ -47,7 +47,7 @@
         <label>Group Housing with bathroom facilities in a nearby/separate building</label>
       </div>
       <div class="col-lg-2 end">
-        <input type="number" class="" name="group_sep_bath" min="0" max="100" />
+        <input type="number" class="col-xs-12" name="group_sep_bath" min="0" />
       </div>
     </div>
     <div class="row">
@@ -55,7 +55,7 @@
         <label>Rustic Housing (screened cabins, teepees, platform tents, etc.) with bathroom facilities in a local/separate building</label>
       </div>
       <div class="col-lg-2 end">
-        <input type="number" class="" name="rustic" min="0" max="100" />
+        <input type="number" class="col-xs-12" name="rustic" min="0" />
       </div>
     </div>
     <div class="row">
@@ -63,7 +63,7 @@
         <label>RV or Tent Sites (number of sites) with bathroom facilities in a local/separate building</label>
       </div>
       <div class="col-lg-2 end">
-        <input type="number" class="" name="rv" min="0" max="100" />
+        <input type="number" class="col-xs-12" name="rv" min="0" />
       </div>
     </div>
     <input type="submit" value="Search For A Retreat Center" class="submit"/>
