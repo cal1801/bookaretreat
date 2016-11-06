@@ -1,25 +1,25 @@
 <p id="notice"><%= notice %></p>
-
+<%= link_to 'New Image', new_image_path %>
 <h1>Listing Images</h1>
 
 
     <div class="row">
-      <div class="col-lg-2">Url</div>
-      <div class="col-lg-4">Camp</div>
+      <div class="col-lg-1">Url</div>
+      <div class="col-lg-3">Camp</div>
+      <div class="col-lg-1">Website</div>
       <div class="col-lg-3"></div>
     </div>
 
     <% @images.each do |image| %>
-      <div class="row images" style="padding-bottom: 5px">
-        <div class="col-lg-2"><%= image_tag image.image_url(:thumb) %></div>
-        <div class="col-lg-4" style="padding-top: 15px"><%= Camp.find(image.camp_id).name %></div>
-        <div class="col-lg-1"><%= link_to 'Show', image %></div>
-        <div class="col-lg-1"><%= link_to 'Edit', edit_image_path(image) %></div>
-        <div class="col-lg-1"><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+      <div class="row images" style="padding-bottom: 5px; text-align: left">
+        <div class="col-lg-1"><%= image_tag image.image_url(:thumb) %></div>
+        <div class="col-lg-3" style="padding-top: 15px"><%= Camp.find(image.camp_id).name %></div>
+        <div class="col-lg-1" style="padding-top: 15px"><%= image.image_type%></div>
+        <div class="col-lg-1" style="padding-top: 15px"><%= link_to 'Show', image %></div>
+        <div class="col-lg-1" style="padding-top: 15px"><%= link_to 'Edit', edit_image_path(image) %></div>
+        <div class="col-lg-1" style="padding-top: 15px"><%= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure?' } %></div>
       </div>
     <% end %>
 
 
 <br>
-
-<%= link_to 'New Image', new_image_path %>
