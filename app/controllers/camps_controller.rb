@@ -96,6 +96,6 @@ class CampsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def camp_params
-      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, images_attributes: [:id, :image_url, :image_type, :camp_id], site_setup_attributes: [:id, :hotel, :group_local_bath, :group_sep_bath, :rustic, :rv])
+      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, :camp_desc, :camp_url, :staff_desc, :staff_url, images_attributes: [:id, :image_url, :image_type, :camp_id], site_setup_attributes: [:id, :hotel, :group_local_bath, :group_sep_bath, :rustic, :rv])
     end
 end

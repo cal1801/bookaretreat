@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="col-xs-12 camp-container">
-      <p class="description"><%=CampInfo.where(camp_id: @camp.id, camp_type: 'pccca').first.try(:description).try(:html_safe) %></p>
+      <p class="description"><%= @camp.try(:camp_desc).try(:html_safe) %></p>
     </div>
     <div class="col-xs-12 camp-container">
       <div class="row camp-images">
@@ -41,7 +41,7 @@
           <%end%>
         <%end%>
         <div class="col-md-3 website">
-          <%=link_to "Learn more about #{@camp.name}", @camp.web_url, {:class => "ripple-effect details", :"data-ripple-color" => "#F69050"}%>
+          <%=link_to "Learn more about #{@camp.name}", @camp.camp_url, {:class => "ripple-effect details", :"data-ripple-color" => "#F69050"}%>
         </div>
       </div>
     </div>

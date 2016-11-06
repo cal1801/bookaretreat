@@ -11,53 +11,84 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="row form-group">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, :class => 'col-lg-8' %>
   </div>
-  <div class="field">
-    <%= f.label :address_id %><br>
-    <%= f.number_field :address_id %>
+  <div class=form-group>
+    <%= f.label :pccca_member %>
+    <%= f.check_box :pccca_member, :class => 'col-lg-4' %>
   </div>
-  <div class="field">
-    <%= f.label :contact_id %><br>
-    <%= f.number_field :contact_id %>
-  </div>
-  <div class="field">
-    <%= f.label :web_url %><br>
-    <%= f.text_field :web_url %>
-  </div>
-  <div class="field">
-    <%= f.label :pccca_member %><br>
-    <%= f.check_box :pccca_member %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row form-group" style="padding-right: 15px">
+        <%= f.label :contact_id %><br />
+        <%= f.number_field :contact_id, :class => 'col-lg-12' %>
+      </div>
+      <div class="row form-group" style="padding-right: 15px">
+        <%= f.label :web_url %><br />
+        <%= f.text_field :web_url, :class => 'col-lg-12' %>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row form-group" style="padding-left: 15px">
+        <%= f.label :address_id, 'address - to be replaced' %><br />
+        <%= f.number_field :address_id, :class => 'col-lg-12' %>
+      </div>
+    </div>
   </div>
 
-  <%= f.fields_for :site_setup do |builder| %>
-    <div class="field">
-      <%= builder.label :hotel, "Number of Hotel Rooms" %>
-      <%= builder.text_field :hotel %>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row form-group" style="padding-right: 15px">
+        <%= f.label :camp_desc %><br />
+        <%= f.text_area :camp_desc, rows: 4, :class => 'col-lg-12' %>
+      </div>
+      <div class="row form-group" style="padding-right: 15px">
+        <%= f.label :camp_url %><br />
+        <%= f.text_field :camp_url, :class => 'col-lg-12' %>
+      </div>
     </div>
-    <div class="field">
-      <%= builder.label :group_local_bath, "Number of Group Rooms with Private Bath" %>
-      <%= builder.text_field :group_local_bath %>
+    <div class="col-lg-6">
+      <div class="row form-group" style="padding-right: 15px">
+        <%= f.label :staff_desc %><br />
+        <%= f.text_area :staff_desc, rows: 4, :class => 'col-lg-12' %>
+      </div>
+      <div class="row form-group" style="padding-right: 15px">
+        <%= f.label :staff_url %><br />
+        <%= f.text_field :staff_url, :class => 'col-lg-12' %>
+      </div>
     </div>
-    <div class="field">
-      <%= builder.label :group_sep_bath, "Number of Group Rooms with Shared Bath" %>
-      <%= builder.text_field :group_sep_bath %>
-    </div>
-    <div class="field">
-      <%= builder.label :rustic, "Number of Rustic/Tent sites" %>
-      <%= builder.text_field :rustic %>
-    </div>
-    <div class="field">
-      <%= builder.label :rv, "Number of RV spots" %>
-      <%= builder.text_field :rv %>
-    </div>
-  <% end %>
+  </div>
+
+  <div class="row">
+    <%= f.fields_for :site_setup do |builder| %>
+      <div class="row form-group col-lg-4">
+        <%= builder.label :hotel, "Number of Hotel Rooms" %>
+        <%= builder.text_field :hotel, :class => '' %>
+      </div>
+      <div class="row form-group col-lg-4">
+        <%= builder.label :group_local_bath, "Number of Group Rooms with Private Bath" %>
+        <%= builder.text_field :group_local_bath, :class => '' %>
+      </div>
+      <div class="row form-group col-lg-4">
+        <%= builder.label :group_sep_bath, "Number of Group Rooms with Shared Bath" %>
+        <%= builder.text_field :group_sep_bath, :class => '' %>
+      </div>
+      <div class="row form-group col-lg-4">
+        <%= builder.label :rustic, "Number of Rustic/Tent sites" %>
+        <%= builder.text_field :rustic, :class => '' %>
+      </div>
+      <div class="row form-group col-lg-4">
+        <%= builder.label :rv, "Number of RV spots" %>
+        <%= builder.text_field :rv, :class => '' %>
+      </div>
+    <% end %>
+  </div>
 
   <%= f.fields_for :images do |builder| %>
     <%= builder.hidden_field :image_type, :value => "bar"%>
-    <div class="field">
+    <div class="row form-group">
       <%= builder.label :image_url, "Image File" %>
       <%= builder.file_field :image_url %>
     </div>
