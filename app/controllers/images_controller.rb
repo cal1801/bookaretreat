@@ -28,8 +28,8 @@ class ImagesController < ApplicationController
 
     respond_to do |format|
       if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render :show, status: :created, location: @image }
+        format.html { redirect_to new_image_path, notice: 'Image was successfully created.' }
+        #format.json { render :new, status: :created, location: @image }
       else
         format.html { render :new }
         format.json { render json: @image.errors, status: :unprocessable_entity }
