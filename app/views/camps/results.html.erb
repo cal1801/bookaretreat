@@ -58,7 +58,7 @@
       <div class="row">
         <div style="height: 50px"></div>
         <%if !(@farther_camps.empty?)%>
-          <h2 class="results-text">Camps just outside your search area</h2>
+          <h2 class="results-text">Conference centers just outside your search area</h2>
         <%end%>
         <% @farther_camps.each do |camp| %>
           <%image = Image.where("camp_id = ? and image_type = 'bar'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bar'", camp.id)%>
