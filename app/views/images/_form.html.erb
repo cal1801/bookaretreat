@@ -13,11 +13,15 @@
 
   <div class="field">
     <%= f.label :url %><br>
-    <%= f.text_field :url %>
+    <%= f.file_field :image_url %>
   </div>
   <div class="field">
     <%= f.label :camp_id %><br>
-    <%= f.number_field :camp_id %>
+    <%= f.select :camp_id, options_from_collection_for_select(Camp.all, 'id', 'name') %>
+  </div>
+  <div class="field">
+    <%= f.label :image_type %><br>
+    <%= f.select :image_type, ['pccca', 'bar', 'bsy', 's2r'] %>
   </div>
   <div class="actions">
     <%= f.submit %>
