@@ -129,7 +129,10 @@ input[type="submit"] {
   video {
     display: none;
   }
-  .content.font-page {
+}
+
+@media (max-width: 1199px) {
+  .content.row.front-page {
     margin: 0 30px;
   }
 }
@@ -169,12 +172,12 @@ input[type="submit"] {
   }
 
   .search.top-bar {
-    height: 120px;
+    height: 100px;
   }
 
   .search.top-bar img {
-    max-width: 90vw;
-    height: auto;
+    height: 100px;
+    margin: 0 auto;
   }
 
   .top-bar h3 {
