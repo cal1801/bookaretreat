@@ -350,6 +350,20 @@ a.pccca-link:hover {
   min-height: 200px
 }
 
+.list-group-item {
+  padding: 5px 0;
+  border: 0;
+  line-height: 1.4rem;
+  font-family: 'Montserrat', sans-serif;
+  padding-top: 4px;
+}
+
+.list-group-item > .badge {
+  float: left;
+  margin-right: 10px;
+  margin-top: -2px;
+}
+
 /*.camp-images img {
   width: 100%;
 }*/

@@ -19,10 +19,34 @@
       <div class="row">
         <div class="col-md-10 col-xs-8">
           <h1 class="camp-title"><%= @camp.name %></h1>
-          <%= @camp.address.try(:city) %>, <%= @camp.address.try(:state) %><br />
         </div>
         <div class="col-md-2 col-xs-4 text-right">
           <%= @camp.pccca_member ? (link_to "#{image_tag('member_pccca.png', {:class => 'pccca'})}".html_safe, 'http://www.pccca.net', :class => "pccca-link") : ''%>
+        </div>
+      </div>
+      <div class="row">
+        <%if @camp.site_setup.housing_exists%>
+          <div class="col-lg-7">
+            <h4>Rooms</h4>
+            <ul class="list-group">
+              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.hotel%></span>Hotel Style Rooms</li>
+              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.group_local_bath%></span>Group Housing with shared bathrooms in the same building</li>
+              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.group_sep_bath%></span>Group Housing with bathroom facilities in a nearby/separate building</li>
+              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.rustic%></span>Rustic Housing with bathroom facilities in a local/separate building</li>
+              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.rv%></span>RV or Tent Sites with bathroom facilities in a local/separate building</li>
+            </ul>
+          </div>
+        <%end%>
+        <div class="col-lg-2 col-xs-6">
+          <h4>Address</h4>
+          <%= @camp.address.try(:address)%><br />
+          <%= "#{@camp.address.try(:address2)}<br />".html_safe if @camp.address.try(:address2).present?%>
+          <%= @camp.address.try(:city) %>, <%= @camp.address.try(:state) %> <%= @camp.address.try(:zip) %><br />
+          <%= link_to "<span class='glyphicon glyphicon-map-marker'></span> Map It".html_safe, "https://www.google.com/maps/search/#{@camp.address.try(:address)}+#{@camp.address.try(:address2)}+#{@camp.address.try(:city)},+#{@camp.address.try(:state)}+#{@camp.address.try(:zip)}", :target => "_blank" %>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <h4>Phone Number</h4>
+          <span class="glyphicon glyphicon-earphone"></span> <%= @camp.try(:phone_number)%><br />
         </div>
       </div>
     </div>
