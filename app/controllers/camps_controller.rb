@@ -30,7 +30,7 @@ class CampsController < ApplicationController
   end
 
   def index
-    @camps = Camp.all.order(:id)
+    @camps = Camp.all.order(:name)
   end
 
   # GET /camps/new
