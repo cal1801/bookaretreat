@@ -129,6 +129,9 @@ input[type="submit"] {
   video {
     display: none;
   }
+  .content.font-page {
+    margin: 0 30px;
+  }
 }
 
 /* =============================================================================
