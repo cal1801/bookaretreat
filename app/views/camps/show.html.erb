@@ -29,11 +29,11 @@
           <div class="col-lg-7">
             <h4>Rooms</h4>
             <ul class="list-group">
-              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.hotel%></span>Hotel Style Rooms</li>
-              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.group_local_bath%></span>Group Housing with shared bathrooms in the same building</li>
-              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.group_sep_bath%></span>Group Housing with bathroom facilities in a nearby/separate building</li>
-              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.rustic%></span>Rustic Housing with bathroom facilities in a local/separate building</li>
-              <li class="list-group-item"><span class="badge"><%=@camp.site_setup.rv%></span>RV or Tent Sites with bathroom facilities in a local/separate building</li>
+              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.hotel}</span>Hotel Style Rooms</li>".html_safe unless @camp.site_setup.hotel.to_i == 0%>
+              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.group_local_bath}</span>Group Housing with shared bathrooms in the same building</li>".html_safe unless @camp.site_setup.group_local_bath.to_i == 0%>
+              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.group_sep_bath}</span>Group Housing with bathroom facilities in a nearby/separate building</li>".html_safe unless @camp.site_setup.group_sep_bath.to_i == 0%>
+              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.rustic}</span>Rustic Housing with bathroom facilities in a local/separate building</li>".html_safe unless @camp.site_setup.rustic.to_i == 0%>
+              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.rv}</span>RV or Tent Sites with bathroom facilities in a local/separate building</li>".html_safe unless @camp.site_setup.rv.to_i == 0%>
             </ul>
           </div>
         <%end%>
