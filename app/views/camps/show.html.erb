@@ -28,13 +28,21 @@
         <%if @camp.site_setup.housing_exists%>
           <div class="col-lg-7">
             <h4>Rooms</h4>
-            <ul class="list-group">
-              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.hotel}</span>Hotel Style Rooms</li>".html_safe unless @camp.site_setup.hotel.to_i == 0%>
-              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.group_local_bath}</span>Group Housing with shared bathrooms in the same building</li>".html_safe unless @camp.site_setup.group_local_bath.to_i == 0%>
-              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.group_sep_bath}</span>Group Housing with bathroom facilities in a nearby/separate building</li>".html_safe unless @camp.site_setup.group_sep_bath.to_i == 0%>
-              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.rustic}</span>Rustic Housing with bathroom facilities in a local/separate building</li>".html_safe unless @camp.site_setup.rustic.to_i == 0%>
-              <%="<li class='list-group-item'><span class='badge'>#{@camp.site_setup.rv}</span>RV or Tent Sites with bathroom facilities in a local/separate building</li>".html_safe unless @camp.site_setup.rv.to_i == 0%>
-            </ul>
+            <div class="row">
+              <%="<div class='col-lg-3 col-xs-1'><span class='badge'>#{@camp.site_setup.hotel}</span></div><div class='col-lg-9 col-xs-11'>Hotel Style Rooms</div>".html_safe unless @camp.site_setup.hotel.to_i == 0%>
+            </div>
+            <div class="row">
+              <%="<div class='col-lg-3 col-xs-1'><span class='badge'>#{@camp.site_setup.group_local_bath}</span></div><div class='col-lg-9 col-xs-11'>Group Housing with shared bathrooms in the same building</div>".html_safe unless @camp.site_setup.group_local_bath.to_i == 0%>
+            </div>
+            <div class="row">
+              <%="<div class='col-lg-3 col-xs-1'><span class='badge'>#{@camp.site_setup.group_sep_bath}</span></div><div class='col-lg-9 col-xs-11'>Group Housing with bathroom facilities in a nearby/separate building</div>".html_safe unless @camp.site_setup.group_sep_bath.to_i == 0%>
+            </div>
+            <div class="row">
+              <%="<div class='col-lg-3 col-xs-1'><span class='badge'>#{@camp.site_setup.rustic}</span></div><div class='col-lg-9 col-xs-11'>Rustic Housing with bathroom facilities in a local/separate building</div>".html_safe unless @camp.site_setup.rustic.to_i == 0%>
+            </div>
+            <div class="row">
+              <%="<div class='col-lg-3 col-xs-1'><span class='badge'>#{@camp.site_setup.rv}</span></div><div class='col-lg-9 col-xs-11'>RV or Tent Sites with bathroom facilities in a local/separate building</div>".html_safe unless @camp.site_setup.rv.to_i == 0%>
+            </div>
           </div>
         <%end%>
         <div class="col-lg-2 col-xs-6">
