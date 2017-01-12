@@ -77,7 +77,7 @@
           <%end%>
           <%images.each do |image|%>
             <div class="col-md-3 camp-photo-wrapper">
-              <div style="background-image: url('<%=asset_path image.image_url(:medium)%>');" class="camp-photo">
+              <div style="background-image: url('<%=asset_path image.image_url(:medium) unless image.nil?%>');" class="camp-photo">
               </div>
             </div>
           <%end%>
