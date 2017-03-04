@@ -127,6 +127,21 @@ input[type="submit"] {
   display: none;
 }
 
+.front-page {
+  background: rgba(255, 255, 255, .8);
+  padding: 15px 30px;
+}
+
+.credit {
+  background: rgba(255, 255, 255, .5);
+  padding: 5px;
+  position: relative;
+  float: right;
+  text-align: right;
+  margin-top: 15px;
+  bottom: 0;
+}
+
 @media (max-width: 767px) {
   .search-prompt {
     font-size: 26px;
