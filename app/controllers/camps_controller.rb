@@ -1,7 +1,7 @@
 class CampsController < ApplicationController
   before_action :states_var
   before_action :set_camp, only: [:show, :edit, :update, :destroy]
-  before_action :fix_state, only: [:index]
+  #before_action :fix_state, only: [:index]
 
 
   # GET /camps
@@ -48,6 +48,10 @@ class CampsController < ApplicationController
   end
 
   def index
+    @camps = Camp.all.order(:name)
+  end
+
+  def all
     @camps = Camp.all.order(:name)
   end
 
