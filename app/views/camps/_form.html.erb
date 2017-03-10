@@ -135,7 +135,7 @@
 
 
   <div class="row form-group">
-    <%images = @camp.images%>
+    <%images = @camp.images.select{|i| i.image_type == 'bar'}%>
     <%(0..2).each do |i|%>
       <div class="col-lg-4">
         <%if images[i].present?%>
