@@ -11,88 +11,167 @@
     </div>
   <% end %>
 
-  <div class="row form-group">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, :class => 'col-lg-8' %>
-  </div>
-  <div class=form-group>
-    <%= f.label :pccca_member %>
-    <%= f.check_box :pccca_member, :class => 'col-lg-4' %>
-  </div>
-  <div class="row">
+  <div class="row  form-group">
+    <div class="col-lg-9">
+      <div class="row">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, :class => 'col-lg-12' %>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="row" style="margin:28px 0 0 15px">
+        <%= f.label :pccca_member %>
+        <%= f.check_box :pccca_member %>
+      </div>
+    </div>
     <div class="col-lg-6">
-      <div class="row form-group" style="padding-right: 15px">
+      <div class="row" style="padding-right: 15px">
         <%= f.label :contact_id %><br />
         <%= f.number_field :contact_id, :class => 'col-lg-12' %>
       </div>
-      <div class="row form-group" style="padding-right: 15px">
+    </div>
+    <div class="col-lg-6">
+      <div class="row" style="padding-right: 15px">
         <%= f.label :web_url %><br />
         <%= f.text_field :web_url, :class => 'col-lg-12' %>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="row form-group" style="padding-left: 15px">
-        <%= f.label :address_id, 'address - to be replaced' %><br />
-        <%= f.number_field :address_id, :class => 'col-lg-12' %>
-      </div>
-    </div>
   </div>
 
-  <div class="row">
+  <%=fields_for @camp.address do |a|%>
+    <%=a.hidden_field :id%>
+    <div class="row form-group">
+      <div class="col-lg-6">
+        <div class="row" style="padding-right: 15px">
+          <%= a.label :address %><br />
+          <%= a.text_field :address, :class => 'col-lg-12' %>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row">
+          <%= a.label :address2 %><br />
+          <%= a.text_field :address2, :class => 'col-lg-12' %>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row" style="padding-right: 15px">
+          <%= a.label :city %><br />
+          <%= a.text_field :city, :class => 'col-lg-12' %>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="row" style="padding-right: 15px">
+          <%= a.label :state %><br />
+          <%= a.text_field :state, :class => 'col-lg-12' %>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="row form-group">
+          <%= a.label :zip %><br />
+          <%= a.text_field :zip, :class => 'col-lg-12' %>
+        </div>
+      </div>
+    </div>
+  <%end%>
+
+  <div class="row form-group">
     <div class="col-lg-6">
-      <div class="row form-group" style="padding-right: 15px">
+      <div class="row " style="padding-right: 15px">
         <%= f.label :camp_desc %><br />
         <%= f.text_area :camp_desc, rows: 4, :class => 'col-lg-12' %>
       </div>
-      <div class="row form-group" style="padding-right: 15px">
+      <div class="row" style="padding-right: 15px">
         <%= f.label :camp_url %><br />
         <%= f.text_field :camp_url, :class => 'col-lg-12' %>
       </div>
     </div>
     <div class="col-lg-6">
-      <div class="row form-group" style="padding-right: 15px">
+      <div class="row" style="padding-right: 15px">
         <%= f.label :staff_desc %><br />
         <%= f.text_area :staff_desc, rows: 4, :class => 'col-lg-12' %>
       </div>
-      <div class="row form-group" style="padding-right: 15px">
+      <div class="row" style="padding-right: 15px">
         <%= f.label :staff_url %><br />
         <%= f.text_field :staff_url, :class => 'col-lg-12' %>
       </div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row form-group">
     <%= f.fields_for :site_setup do |builder| %>
-      <div class="row form-group col-lg-4">
+      <div class="row  col-lg-4">
         <%= builder.label :hotel, "Number of Hotel Rooms" %>
         <%= builder.text_field :hotel, :class => '' %>
       </div>
-      <div class="row form-group col-lg-4">
+      <div class="row col-lg-4">
         <%= builder.label :group_local_bath, "Number of Group Rooms with Private Bath" %>
         <%= builder.text_field :group_local_bath, :class => '' %>
       </div>
-      <div class="row form-group col-lg-4">
+      <div class="row col-lg-4">
         <%= builder.label :group_sep_bath, "Number of Group Rooms with Shared Bath" %>
         <%= builder.text_field :group_sep_bath, :class => '' %>
       </div>
-      <div class="row form-group col-lg-4">
+      <div class="row col-lg-4">
         <%= builder.label :rustic, "Number of Rustic/Tent sites" %>
         <%= builder.text_field :rustic, :class => '' %>
       </div>
-      <div class="row form-group col-lg-4">
+      <div class="row col-lg-4">
         <%= builder.label :rv, "Number of RV spots" %>
         <%= builder.text_field :rv, :class => '' %>
       </div>
     <% end %>
   </div>
 
-  <%= f.fields_for :images do |builder| %>
-    <%= builder.hidden_field :image_type, :value => "bar"%>
-    <div class="row form-group">
-      <%= builder.label :image_url, "Image File" %>
-      <%= builder.file_field :image_url %>
-    </div>
-  <% end %>
+  <!--<div class="row form-group">
+    <h4>Amenities</h4>
+    <%#= f.fields_for :amenities do |builder| %>
+      <div class="row col-lg-12">
+        <%#= builder.collection_check_boxes(:amenity_id, Amenity.all, :id, :name) do |b|%>
+          <%#=b.label(:"data-value" => b.value, class: "col-lg-4") { b.check_box + b.text }%>
+        <%#end%>
+      </div>
+    <%# end %>
+  </div>-->
+
+
+  <div class="row form-group">
+    <%images = @camp.images%>
+    <%(0..2).each do |i|%>
+      <div class="col-lg-4">
+        <%if images[i].present?%>
+          <%=image_tag images[i].image_url(:medium)%><br/>
+          <div class="row">
+            <div class="col-lg-12">
+              <%=link_to "Delete", images[i], :method => "delete"%>
+            </div>
+          </div>
+        <%else%>
+          <%image = Image.new%>
+          <%= f.fields_for :images, @camp.images.build do |image_f| %>
+            <div class="col-lg-4">
+              <%= image_f.hidden_field :image_type, :value => "bar"%>
+              <%= image_f.hidden_field :camp_id, :value => @camp.id%>
+              <%= image_f.label :image_url, "Image File" %>
+              <%= image_f.file_field :image_url%>
+              <div class="actions">
+                <%= image_f.submit %>
+              </div>
+            </div>
+          <% end %>
+        <%end%>
+      </div>
+    <%end%>
+  </div>
+
+  <!--<div class="row form-group">
+    <%#= f.fields_for :images do |builder| %>
+      <div class="col-lg-4">
+        <%#= builder.hidden_field :image_type, :value => "bar"%>
+        <%#= builder.label :image_url, "Image File" %>
+        <%#= builder.file_field :image_url%>
+      </div>
+    <%# end %>
+  </div>-->
 
   <div class="actions">
     <%= f.submit %>

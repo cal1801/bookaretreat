@@ -1,10 +1,9 @@
 <div class="nav-bar">
   <div class="container">
     <div class="row admin-nav">
-      <div class="col-lg-3">
+      <div class="col-lg-9">
         <%=image_tag "bar.png", height: "50px"%>
-      </div>
-      <div class="col-lg-6">
+        &nbsp;&nbsp;&nbsp;&nbsp;Logged in as <%=current_user.email%>
       </div>
       <div class="col-lg-3 sign-out">
         <%=link_to "All Camps", camps_path%>

@@ -1,4 +1,5 @@
 class CampsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
   before_action :states_var
   before_action :set_camp, only: [:show, :edit, :update, :destroy]
   #before_action :fix_state, only: [:index]
@@ -88,8 +89,9 @@ class CampsController < ApplicationController
   def update
     respond_to do |format|
       if @camp.update(camp_params)
-        format.html { redirect_to @camp, notice: 'Camp was successfully updated.' }
-        format.json { render :show, status: :ok, location: @camp }
+        Address.find(params[:address][:id]).update_columns(params[:address])
+        format.html { redirect_to edit_camp_path(@camp), notice: 'Camp was successfully updated.' }
+        format.json { render :edit, status: :ok, location: @camp }
       else
         format.html { render :edit }
         format.json { render json: @camp.errors, status: :unprocessable_entity }
@@ -193,6 +195,9 @@ class CampsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def camp_params
-      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, :camp_desc, :camp_url, :staff_desc, :staff_url, images_attributes: [:id, :image_url, :image_type, :camp_id], site_setup_attributes: [:id, :hotel, :group_local_bath, :group_sep_bath, :rustic, :rv])
+      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, :camp_desc, :camp_url, :staff_desc, :staff_url,
+        images_attributes: [:id, :image_url, :image_type, :camp_id],
+        site_setup_attributes: [:id, :hotel, :group_local_bath, :group_sep_bath, :rustic, :rv]
+      )
     end
 end

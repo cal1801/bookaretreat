@@ -1,10 +1,15 @@
 <div class="content row">
-  <div class="col-lg-12">
+  <div class="col-lg-6">
     <h1 style="margin-left: -15px">Editing Camp</h1>
+  </div>
+  <div class="col-lg-6" style="margin-top:25px; text-align: right">
+    <p style="font-weight: bold; font-size: 1.5em">
+      <%= link_to 'Show Listing', @camp %> |
+      <%= link_to 'Back to All Camps', camps_path %>
+    </p>
+  </div>
 
+  <div class="col-lg-12">
     <%= render 'form' %>
-
-    <%= link_to 'Show', @camp %> |
-    <%= link_to 'Back', camps_path %>
   </div>
 </div>
