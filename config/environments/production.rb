@@ -77,6 +77,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  #devise
+  config.action_mailer.default_url_options = { host: 'book-a-retreat.herokuapp.com' }
+  config.assets.initialize_on_precompile = false
+
   #S3 server settings
   config.paperclip_defaults = {
     storage: :s3,
