@@ -137,7 +137,7 @@
   <div class="row form-group">
     <%images = @camp.images.select{|i| i.image_type == 'bar'}%>
     <%(0..2).each do |i|%>
-      <div class="col-lg-4">
+      <div class="col-lg-4" style="overflow: hidden">
         <%if images[i].present?%>
           <%=image_tag images[i].image_url(:medium)%><br/>
           <div class="row">
@@ -148,14 +148,12 @@
         <%else%>
           <%image = Image.new%>
           <%= f.fields_for :images, @camp.images.build do |image_f| %>
-            <div class="col-lg-4">
-              <%= image_f.hidden_field :image_type, :value => "bar"%>
-              <%= image_f.hidden_field :camp_id, :value => @camp.id%>
-              <%= image_f.label :image_url, "Image File" %>
-              <%= image_f.file_field :image_url%>
-              <div class="actions">
-                <%= image_f.submit %>
-              </div>
+            <%= image_f.hidden_field :image_type, :value => "bar"%>
+            <%= image_f.hidden_field :camp_id, :value => @camp.id%>
+            <%= image_f.label :image_url, "Image File" %>
+            <%= image_f.file_field :image_url%>
+            <div class="actions">
+              <%= image_f.submit %>
             </div>
           <% end %>
         <%end%>
@@ -172,8 +170,4 @@
       </div>
     <%# end %>
   </div>-->
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
