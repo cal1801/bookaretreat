@@ -59,7 +59,7 @@ class CampsController < ApplicationController
   # GET /camps/new
   def new
     @camp = Camp.new
-    3.times {@camp.images.build}
+    #3.times {@camp.images.build}
   end
 
   # GET /camps/1/edit
