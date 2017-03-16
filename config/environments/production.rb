@@ -81,6 +81,21 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'book-a-retreat.herokuapp.com' }
   config.assets.initialize_on_precompile = false
 
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = false
+  ActionMailer::Base.default :charset => "utf-8"
+
+  ActionMailer::Base.smtp_settings = {
+     :tls => true,
+     :address => "smtp.gmail.com",
+     :port => 587,
+     :domain => "gmail.com",
+     :authentication => :login,
+     :user_name => "[username]",
+     :password => "[password]"
+   }
+
   #S3 server settings
   config.paperclip_defaults = {
     storage: :s3,
