@@ -35,12 +35,12 @@ class CampsController < ApplicationController
     #if the search param is a full state name
     if @states.select{|state, abv| state.upcase == params[:state].upcase}
       state = @states.select{|state, abv| abv.upcase == params[:state].upcase}
-      search = state.empty? ? params[:state] : state[0][0]
-
-      addresses = Address.where(state: params[:state].upcase)
+      full_state = state.empty? ? params[:state] : state[0][0]
+      byebug
+      addresses = Address.where(state: params[:state])
       @camps = addresses.map{|a| a.camp}.sort_by{|c| addresses.map(&:id)}
       byebug
-      farther_addresses = Address.near(search, 300).order("distance")
+      farther_addresses = Address.near(full_state, 300).order("distance")
 
       farther_addresses.uniq
 
@@ -66,7 +66,7 @@ class CampsController < ApplicationController
   end
 
   def search_by_address
-    search = params[:city] + params[:state]
+    search = params[:city] + ", " + params[:state]
     addresses = Address.near(search, 150).order("distance")
     @camps = addresses.map{|a| a.camp}.sort_by{|c| addresses.map(&:id)}
 
@@ -144,7 +144,6 @@ class CampsController < ApplicationController
     end
     respond_to do |format|
       if @camp.update(camp_params)
-        Address.find(params[:address][:id]).update_columns(params[:address])
         format.html { redirect_to edit_camp_path(@camp), notice: 'Camp was successfully updated.' }
         format.json { render :edit, status: :ok, location: @camp }
       else
@@ -183,8 +182,9 @@ class CampsController < ApplicationController
     end
 
     def fix_state
-      state = @states.select{|state, abv| abv.upcase == params[:state].upcase}
-      params[:state] = state.empty? ? word : state[0][1]
+      state = @states.select{|state, abv| state.upcase == params[:state].upcase}
+      params[:state] = state.empty? ? params[:state] : state[0][1]
+      #byebug
     end
 
     def states_var
@@ -259,8 +259,10 @@ class CampsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def camp_params
-      params.require(:camp).permit(:name, :address_id, :contact_id, :web_url, :pccca_member, :site_setup_id, :camp_desc, :camp_url, :staff_desc, :staff_url,
-        images_attributes: [:id, :image_url, :image_type, :camp_id],
+      params[:camp][:images_attributes].delete_if{|k,v| v[:image_url].nil?} unless params[:camp][:images_attributes].nil?
+      params.require(:camp).permit(:name, :contact_id, :web_url, :pccca_member, :site_setup_id, :camp_desc, :camp_url, :staff_desc, :staff_url,
+        images_attributes: [:image_url, :image_type, :camp_id],
+        address_attributes: [:address, :address2, :city, :state, :zip, :camp_id],
         site_setup_attributes: [:id, :hotel, :group_local_bath, :group_sep_bath, :rustic, :rv]
       )
     end

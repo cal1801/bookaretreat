@@ -9,5 +9,5 @@ class Camp < ActiveRecord::Base
   has_many :images, :dependent => :destroy
   has_many :camp_infos
 
-  accepts_nested_attributes_for :images, :site_setup
+  accepts_nested_attributes_for :images, :site_setup, :address
 end

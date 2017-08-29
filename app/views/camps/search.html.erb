@@ -44,7 +44,7 @@
             <%image = Image.where("camp_id = ? and image_type = 'bar'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bar'", camp.id)%>
             <div class="col-md-6 col-sm-12" style="margin-bottom:30px">
               <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url(:medium)})"%>
-              <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address_id%>" style="<%=background%>">
+              <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address.id%>" style="<%=background%>">
                 <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
                 <%#url = "site_images/"+image.first.image_url if !image.blank?%>
                 <%#=image_tag url%>
