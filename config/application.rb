@@ -22,5 +22,8 @@ module Bestsummeryet
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = { :api_key => Rails.application.secrets.postmark_api_token }
   end
 end

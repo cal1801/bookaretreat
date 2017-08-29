@@ -432,6 +432,20 @@ a.details:visited, a.details.results:visited {
   background: #fff;
 }
 
+.camp-row {
+  padding: 5px;
+}
+
+.camp-name {
+  margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .camp-name {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+}
 
 /* =============================================================================
   User stuff
@@ -473,4 +487,39 @@ a.details:visited, a.details.results:visited {
 
 .sign-out a:last-child {
   margin-right: 0
+}
+
+/* =============================================================================
+  Helper Classes
+============================================================================= */
+.mtn {
+  margin-top: 0;
+}
+
+.mts {
+  margin-top: 5px;
+}
+
+.mll {
+  margin-left: 15px;
+}
+
+.mtl {
+  margin-top: 15px;
+}
+
+.mtxl {
+  margin-top: 25px;
+}
+
+.mtsl {
+  margin-top: 30px;
+}
+
+.mrl {
+  margin-right: 15px;
+}
+
+.mbm {
+  margin-bottom: 10px;
 }

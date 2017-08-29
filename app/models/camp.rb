@@ -1,9 +1,11 @@
 class Camp < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: [:slugged]
   validates :name, presence: true
 
-  belongs_to :address
+  has_one :address, :dependent => :destroy
   belongs_to :contact
-  has_one :site_setup, :dependent => :destroy
+  has_one :site_setup
   has_many :images, :dependent => :destroy
   has_many :camp_infos
 

@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+
+setTimeout(function() {
+  $('.notice, .alert').fadeOut();
+}, 3000 );

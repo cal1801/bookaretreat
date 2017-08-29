@@ -1,0 +1,49 @@
+<% content_for :head do %>
+  <style>
+    body {
+      background-color: #eee !important;
+    }
+  </style>
+<%end%>
+<div class="container mbm" style="<%='margin-top: 72px' if user_signed_in?%>">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="mtn" style="float: left">Listing Camps</h1>
+      <%=link_to "New Camp", new_camp_path, class:"btn btn-default btn-sm left mll mts"%>
+
+      <% @camps.each do |camp| %>
+        <div class="row camp-row" style="clear: both">
+          <div class="col-sm-5 camp-name">
+            <%= camp.name%><br />
+          </div>
+          <div class="col-sm-2 camp-name">
+            <%=label_tag camp.id, "PCCCA Member?", style:"margin-right: 10px"%>
+            <%=check_box_tag "#{camp.id}", camp.pccca_member, checked = camp.pccca_member, class:"pccca_member"%><br />
+          </div>
+          <div class="col-sm-3">
+            <%= link_to 'Show', camp, :style=>"margin-right: 15px", class:"btn btn-default btn-sm" %>
+            <%= link_to 'Edit', edit_camp_path(camp), :style=>"margin-right: 15px", class:"btn btn-default btn-sm"  %>
+            <%= link_to 'Destroy', camp, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-default btn-sm"  %>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".pccca_member").change(function() {
+    var change_to = $(this).is(":checked")
+    $.ajax ({
+      url: "/camps/"+ $(this).attr("name") + "/update_membership",
+      method: "PUT",
+      data: {"change_to": change_to},
+      success:function(data) {
+        $(".notice").html("Camp was successfully updated.").show();
+        setTimeout(function() {
+          $('.notice, .alert').fadeOut();
+        }, 3000 );
+      }
+    });
+  });
+</script>

@@ -1,86 +1,178 @@
-<%content_for :head do%>
-  <style>
-    body {
-      background: url('/assets/cover 1.JPG');
-      background-size: cover;
-    }
-  </style>
-<%end%>
+<script src="//maps.google.com/maps/api/js?key=AIzaSyDBBGiFgEnyUDYe4V-751ptbtLIgR7dpMU"></script>
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 
-<div class="row full-width">
-  <div class="large-12 columns search top-bar">
-    <div class="content">
-      <div class="row" style="margin: 0 15px">
-        <div class="large-12 columns">
-          <%=image_tag 'bar', :class => "float: left"%>
-            <p style="float: left;" class="show-desktop">Find a retreat location for your next event for free.  We offer a list of conference rental and retreat rental locations at camps and conference centers throughout North America.</p>
-        </div>
-      </div>
+<p id="notice"><%= notice %></p>
+
+<div class="row full-width fixed" style="top: 0; z-index: 10; <%="margin-top: 50px;" if user_signed_in?%>">
+  <div class="col-lg-12 top-bar">
+    <div class="col-lg-4 col-xs-5 ">
+      <%=link_to (image_tag 'bar'), root_path%>
+    </div>
+    <div class="col-lg-8 col-xs-7 menu">
+      <h3><%=link_to '&#8610; Back to Search'.html_safe, root_path%></h3>
     </div>
   </div>
 </div><!--end top-bar-->
 
-<div class="row content front-page">
-  <p class="show-mobile" style="margin: 0 -15px 10px;">Find a retreat location for your next event for free.  We offer a list of conference rental and retreat rental locations at camps and conference centers throughout North America.</p>
-  <%=form_tag results_camps_path, :id => 'SearchForm', :method => 'get' do %>
-    <div class="row">
-      <div class="col-lg-6 col-xs-12 form-group" style="padding-left: 0">
-        <%=label_tag "city", "City"%><br />
-        <%=text_field_tag "city",'', :class => "col-xs-12"%>
-      </div>
-      <div class="col-lg-6 col-xs-12 form-group" style="padding-left: 0">
-        <%=label_tag "state", "State"%><br />
-        <%=text_field_tag "state",'',:class => "col-xs-12"%>
-      </div>
-    </div>
+<div class="container results">
+  <div class="row">
+    <div class="col-lg-8">
+      <%if !(@camps.empty? && @farther_camps.empty?)%>
+        <div class="row featured">
+          <%camp_plural = @camps.reject{|c| c.pccca_member == false}.count > 1 ? "Center".pluralize : "Center"%>
+          <%header = '<h2 class="results-text">Featured ' + camp_plural + '</h2>'%>
+          <%=header.html_safe if @camps.reject{|c| c.pccca_member == false}.count > 0%>
+          <% @camps.reject{|c| c.pccca_member == false}.each do |camp| %>
+            <%image = Image.where("camp_id = ? and image_type = 'bar'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bar'", camp.id)%>
+            <div class="col-md-6 col-sm-12" style="margin-bottom:30px">
+              <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url(:medium)})"%>
+              <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address.id%>" style="<%=background%>">
+                <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
+                <%#url = asset_path image.first.image_url if !image.blank?%>
+                <%#=image_tag url%>
 
-    <div class="row">
-      <h2 style="margin-top: 0"><em><strong>Optional Information</strong></em></h2>
-      <p>Please enter the number of beds in each lodging accommodation you will require for your retreat:</p>
-      <div class="col-lg-6 columns" style="margin-top: 8px">
-        <label>Hotel/Motel-style Housing with private bathrooms</label>
-      </div>
-      <div class="col-lg-2 end">
-        <input type="number" class="col-xs-12" name="hotel" min="0" />
+                <h4 class="name"><%=camp.name%></h4>
+                <p class="city"><%=camp.address.city%>, <%=camp.address.state%></p>
+                <%= link_to 'Find Out More', camp, :class => "details results ripple-effect", :"data-ripple-color" => "#871084", :"data-ripple-limit" => ".card-container"%>
+              </div>
+            </div><!-- ending of result -->
+          <%end%>
+        </div>
+        <div class="row">
+          <%='<hr style="padding: 15px"/>'.html_safe unless @camps.reject{|c| c.pccca_member == false}.empty?%>
+          <% @camps.reject{|c| c.pccca_member == true}.each do |camp| %>
+            <%image = Image.where("camp_id = ? and image_type = 'bar'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bar'", camp.id)%>
+            <div class="col-md-6 col-sm-12" style="margin-bottom:30px">
+              <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url(:medium)})"%>
+              <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address_id%>" style="<%=background%>">
+                <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
+                <%#url = "site_images/"+image.first.image_url if !image.blank?%>
+                <%#=image_tag url%>
+
+                <h4 class="name"><%=camp.name%></h4>
+                <p class="city"><%=camp.address.city%>, <%=camp.address.state%></p>
+                <%= link_to 'Find Out More', camp, :class => "details results ripple-effect", :"data-ripple-color" => "#871084", :"data-ripple-limit" => ".card-container"%>
+              </div>
+            </div><!-- ending of result -->
+          <%end%>
+        </div>
+        <%= '<div style="height: 50px"></div>'.html_safe unless @camps.empty?%>
+        <div class="row">
+          <%if !(@farther_camps.empty?)%>
+            <h2 class="results-text">Conference centers just outside your search area</h2>
+          <%end%>
+          <% @farther_camps.each do |camp| %>
+            <%image = Image.where("camp_id = ? and image_type = 'bar'", camp.id).blank? ? Image.where("camp_id = ? and image_type = 'pccca'", camp.id) : Image.where("camp_id = ? and image_type = 'bar'", camp.id)%>
+            <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom:30px">
+              <%background = image.blank? ? "" : "background-image: url(#{asset_path image.first.image_url(:medium)})"%>
+              <div class="card-container <%="no-image" if image.blank?%> location-<%=camp.address.id%>" style="<%=background%>">
+                <div class="card-overlay" style="<%='display: none;' if image.blank?%>"></div>
+                <%#url = image.first.image_url if !image.blank?%>
+                <%#=image_tag url%>
+
+                <h4 class="name"><%=camp.name%></h4>
+                <p class="city"><%=camp.address.city%>, <%=camp.address.state%></p>
+                <%= link_to 'Find Out More', camp, :class => "details results ripple-effect", :"data-ripple-color" => "#871084", :"data-ripple-limit" => ".card-container"%>
+              </div>
+            </div><!-- ending of result -->
+          <%end%>
+        </div>
+      <%else%>
+        <h2 class="results-text">No Conference centers found. Please try searching again.</h2>
+        <%=form_tag search_camps_path, :id => 'ReSearchForm', :method => 'get' do %>
+          <div class="row">
+            <div class="col-lg-6 col-xs-12 form-group" style="padding-left: 0">
+              <%=label_tag "city", "City"%><br />
+              <%=text_field_tag "city",'', :class => "col-xs-12"%>
+            </div>
+            <div class="col-lg-6 col-xs-12 form-group" style="padding-left: 0">
+              <%=label_tag "state", "State"%><br />
+              <%=text_field_tag "state",'',:class => "col-xs-12"%>
+            </div>
+          </div>
+
+          <div class="row">
+            <h2 style="margin-top: 0"><em><strong>Optional Information</strong></em></h2>
+            <p>Please enter the number of beds in each lodging accommodation you will require for your retreat:</p>
+            <div class="col-lg-6 columns" style="margin-top: 8px">
+              <label>Hotel/Motel-style Housing with private bathrooms</label>
+            </div>
+            <div class="col-lg-2 end">
+              <input type="number" class="col-xs-12" name="hotel" min="0" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <label>Group Housing with shared bathrooms in the same building</label>
+            </div>
+            <div class="col-lg-2 end">
+              <input type="number" class="col-xs-12" name="group_local_bath" min="0" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <label>Group Housing with bathroom facilities in a nearby/separate building</label>
+            </div>
+            <div class="col-lg-2 end">
+              <input type="number" class="col-xs-12" name="group_sep_bath" min="0" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <label>Rustic Housing (screened cabins, teepees, platform tents, etc.) with bathroom facilities in a local/separate building</label>
+            </div>
+            <div class="col-lg-2 end">
+              <input type="number" class="col-xs-12" name="rustic" min="0" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <label>RV or Tent Sites (number of sites) with bathroom facilities in a local/separate building</label>
+            </div>
+            <div class="col-lg-2 end">
+              <input type="number" class="col-xs-12" name="rv" min="0" />
+            </div>
+          </div>
+          <input type="submit" value="Search For A Retreat Center" class="submit"/>
+        <%end%>
+      <%end%>
+    </div>
+    <div class="col-lg-4">
+      <div class="affix">
+        <div id="map" style='height: 75vh;'></div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <label>Group Housing with shared bathrooms in the same building</label>
-      </div>
-      <div class="col-lg-2 end">
-        <input type="number" class="col-xs-12" name="group_local_bath" min="0" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <label>Group Housing with bathroom facilities in a nearby/separate building</label>
-      </div>
-      <div class="col-lg-2 end">
-        <input type="number" class="col-xs-12" name="group_sep_bath" min="0" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <label>Rustic Housing (screened cabins, teepees, platform tents, etc.) with bathroom facilities in a local/separate building</label>
-      </div>
-      <div class="col-lg-2 end">
-        <input type="number" class="col-xs-12" name="rustic" min="0" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <label>RV or Tent Sites (number of sites) with bathroom facilities in a local/separate building</label>
-      </div>
-      <div class="col-lg-2 end">
-        <input type="number" class="col-xs-12" name="rv" min="0" />
-      </div>
-    </div>
-    <input type="submit" value="Search For A Retreat Center" class="submit"/>
+  </div>
+</div>
+
+<br>
+
+<script type="text/javascript">
+handler = Gmaps.build('Google', {markers: {clusterer: undefined}});
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers(<%=raw @hash.to_json %>);
+
+  _.each(<%=raw @hash.to_json %>, function(json, index){
+    json.marker = markers[index];
+    $(".location-" + json.id).on('mouseover', function() {
+      //handler.getMap().setZoom(9);
+      json.marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+      //json.marker.panTo();
+      google.maps.event.trigger(json.marker.getServiceObject(), 'click');
+    });
+    $(".location-" + json.id).on('mouseout', function() {
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+      json.marker.infowindow.close()
+    });
+  });
+
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  <%if @hash.size == 1 && @hash.first[:id] == 0%>
+    handler.getMap().setZoom(5);
   <%end%>
-</div>
+});
+</script>
 
-<div class="credit">
-  Laurel Ridge Camp, Conference, and Retreat Center<br/>
-  Laurel Springs, NC
-</div>
+<%#= link_to 'New Camp', new_camp_path %>

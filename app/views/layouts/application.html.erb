@@ -7,18 +7,19 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <%= yield :head %>
-  <script>
-    setTimeout(function() {
-      $('.notice, .alert').fadeOut();
-    }, 3000 );
-  </script>
 </head>
 <body>
 
-<%= render "layouts/admin_nav" if current_user.try(:admin?)%>
+<%if user_signed_in?%>
+  <%if current_user.try(:admin?)%>
+    <%=render "layouts/admin_nav"%>
+  <%else%>
+    <%=render "layouts/user_nav"%>
+  <%end%>
+<%end%>
 
-<%if !!notice%><p class="notice btn-success"><%= notice %></p><%end%>
-<%if !!alert%><p class="alert btn-warning"><%= alert %></p><%end%>
+<p class="notice btn-success" style="display: <%=!!notice ? "block" : "none"%>"><%= notice %></p>
+<p class="alert btn-warning" style="display: <%=!!alert ? "block" : "none"%>"><%= alert %></p>
 
 <%= yield %>
 

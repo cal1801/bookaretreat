@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  devise_scope :user do
-    get "/sign_in" => "devise/sessions#new" # custom path to login/sign_in
-    get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to sign_up/registration
-  end
+  #devise_scope :user do
+  #  get "/sign_in" => "devise/sessions#new" # custom path to login/sign_in
+  #  get "/sign_up" => "devise/registrations#new", as: "new_user_registration" # custom path to sign_up/registration
+  #end
   devise_for :users
   resources :camp_types
   resources :camp_infos
@@ -14,14 +14,18 @@ Rails.application.routes.draw do
   resources :camps do
     collection do
       get 'search'
-      get 'results'
+      get 'all'
+      get 'site_index'
     end
   end
+
+  get 'sitemap.xml', :to => 'sitemap#index', :defaults => { :format => 'xml' }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'camps#search'
+  root 'camps#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -11,163 +11,117 @@
     </div>
   <% end %>
 
-  <div class="row  form-group">
-    <div class="col-lg-9">
-      <div class="row">
-        <%= f.label :name %><br />
-        <%= f.text_field :name, :class => 'col-lg-12' %>
+  <%if current_user.admin?%>
+    <div class="row form-group" style="text-align: left">
+      <div class="col-lg-5">
+        <%=f.label :name%>
+        <%=f.text_field :name, :class => 'col-lg-12 form-control'%>
+      </div>
+      <div class="col-lg-4">
+        <%=label_tag :email, "Login Email"%>
+        <%=email_field_tag :email, @camp.contact.try(:email), :class => 'col-lg-12 form-control'%>
+      </div>
+      <div class="col-lg-3 mtsl">
+        <%=f.label :pccca_member, "PCCCA Memeber", class:"mrl"%>
+        <%=f.check_box :pccca_member%>
       </div>
     </div>
-    <div class="col-lg-3">
-      <div class="row" style="margin:28px 0 0 15px">
-        <%= f.label :pccca_member %>
-        <%= f.check_box :pccca_member %>
+
+
+    <%=f.fields_for :address do |a|%>
+      <%=a.hidden_field :id%>
+      <div class="row form-group" style="text-align: left">
+        <div class="col-lg-6">
+          <%= a.label :address %><br />
+          <%= a.text_field :address, :class => 'col-lg-12 form-control' %>
+        </div>
+        <div class="col-lg-6">
+          <%= a.label :address2 %><br />
+          <%= a.text_field :address2, :class => 'col-lg-12 form-control' %>
+        </div>
+        <div class="col-lg-6">
+          <%= a.label :city %><br />
+          <%= a.text_field :city, :class => 'col-lg-12 form-control' %>
+        </div>
+        <div class="col-lg-3">
+          <%= a.label :state %><br />
+          <%= a.select :state, grouped_options_for_select(us_states, @camp.address.state), {:prompt => "Choose A State/Province"}, {:class=>"form-control"} %>
+          <%#= a.text_field :state, :class => 'col-lg-12 form-control' %>
+        </div>
+        <div class="col-lg-3">
+          <%= a.label :zip %><br />
+          <%= a.text_field :zip, :class => 'col-lg-12 form-control' %>
+        </div>
       </div>
+    <%end%>
+
+  <%end%>
+
+  <div class="row form-group" style="text-align: left">
+    <div class="col-lg-12">
+      <p>Best Summer Yet is a tool for helping potential campers and parents find your summer program. We suggest that you keep your description short and to the point (you are limited to 250 words), so potential campers will click through to your website for more information. For the description in the box below, you can include specifics like dates, programs, and/or the summer theme. Just keep in mind that you will need to login again to make any necessary changes (during this season or before next summer).</p>
+
+      <%if @camp.camp_desc.nil?%>
+        <p><b><em>If you have text that is showing up on your listing, that isn't here in the edit area, its because the system is using default text from the Book A Retreat website. When you fill in your description here it will show on your page.</em></b></p>
+      <%end%>
+
+      <%= f.text_area :camp_desc, rows: 10, :class => 'col-lg-12 form-control' %>
     </div>
-    <div class="col-lg-6">
-      <div class="row" style="padding-right: 15px">
-        <%= f.label :contact_id %><br />
-        <%= f.number_field :contact_id, :class => 'col-lg-12' %>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="row" style="padding-right: 15px">
-        <%= f.label :web_url %><br />
-        <%= f.text_field :web_url, :class => 'col-lg-12' %>
-      </div>
+    <div class="col-lg-12 mtl">
+      <p>For the website URL, we suggest providing a link that takes a visitor straight to your summer camp page (so they don't have to hunt for it on your website). If your URL doesn't change from year to year (yourcamp.org/summer-camp instead of summercamp2017), it will keep you from having to login next time to make changes.</p>
+      <%= f.text_field :camp_url, :class => 'col-lg-12 form-control' %>
     </div>
   </div>
 
-  <%=fields_for @camp.address do |a|%>
-    <%=a.hidden_field :id%>
-    <div class="row form-group">
-      <div class="col-lg-6">
-        <div class="row" style="padding-right: 15px">
-          <%= a.label :address %><br />
-          <%= a.text_field :address, :class => 'col-lg-12' %>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="row">
-          <%= a.label :address2 %><br />
-          <%= a.text_field :address2, :class => 'col-lg-12' %>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="row" style="padding-right: 15px">
-          <%= a.label :city %><br />
-          <%= a.text_field :city, :class => 'col-lg-12' %>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="row" style="padding-right: 15px">
-          <%= a.label :state %><br />
-          <%= a.text_field :state, :class => 'col-lg-12' %>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="row form-group">
-          <%= a.label :zip %><br />
-          <%= a.text_field :zip, :class => 'col-lg-12' %>
-        </div>
+  <%unless current_user.admin?%>
+    <div class="row form-group" style="text-align: left">
+      <div class="col-lg-12">
+        <p>This is the email that is assigned to your camp to login to Best Summer Yet. When you edit this email address, it will alter the email address you will use to log into your account, however the password will stay the same.</p>
+        <%=email_field_tag :email, @camp.contact.try(:email), :class => 'col-lg-12 form-control'%>
       </div>
     </div>
   <%end%>
 
-  <div class="row form-group">
-    <div class="col-lg-6">
-      <div class="row " style="padding-right: 15px">
-        <%= f.label :camp_desc %><br />
-        <%= f.text_area :camp_desc, rows: 4, :class => 'col-lg-12' %>
-      </div>
-      <div class="row" style="padding-right: 15px">
-        <%= f.label :camp_url %><br />
-        <%= f.text_field :camp_url, :class => 'col-lg-12' %>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="row" style="padding-right: 15px">
-        <%= f.label :staff_desc %><br />
-        <%= f.text_area :staff_desc, rows: 4, :class => 'col-lg-12' %>
-      </div>
-      <div class="row" style="padding-right: 15px">
-        <%= f.label :staff_url %><br />
-        <%= f.text_field :staff_url, :class => 'col-lg-12' %>
-      </div>
-    </div>
-  </div>
+  <%if @camp.pccca_member?%>
+    <div class="row form-group" style="text-align: left">
+      <div class="col-lg-12">
+        <p>The three pictures you submit below will be automatically cropped square for your listing (please do not choose panoramic shots). To have more control over the cropping please edit the photo to be square before uploading. Since this website deals with potential summer campers, it would beneficial if these pictures focused on what your program has to offer. Picture #1 will be the dominant image used with your listing in the directory.</p>
 
-  <div class="row form-group">
-    <%= f.fields_for :site_setup do |builder| %>
-      <div class="row  col-lg-4">
-        <%= builder.label :hotel, "Number of Hotel Rooms" %>
-        <%= builder.text_field :hotel, :class => '' %>
-      </div>
-      <div class="row col-lg-4">
-        <%= builder.label :group_local_bath, "Number of Group Rooms with Private Bath" %>
-        <%= builder.text_field :group_local_bath, :class => '' %>
-      </div>
-      <div class="row col-lg-4">
-        <%= builder.label :group_sep_bath, "Number of Group Rooms with Shared Bath" %>
-        <%= builder.text_field :group_sep_bath, :class => '' %>
-      </div>
-      <div class="row col-lg-4">
-        <%= builder.label :rustic, "Number of Rustic/Tent sites" %>
-        <%= builder.text_field :rustic, :class => '' %>
-      </div>
-      <div class="row col-lg-4">
-        <%= builder.label :rv, "Number of RV spots" %>
-        <%= builder.text_field :rv, :class => '' %>
-      </div>
-    <% end %>
-  </div>
-
-  <!--<div class="row form-group">
-    <h4>Amenities</h4>
-    <%#= f.fields_for :amenities do |builder| %>
-      <div class="row col-lg-12">
-        <%#= builder.collection_check_boxes(:amenity_id, Amenity.all, :id, :name) do |b|%>
-          <%#=b.label(:"data-value" => b.value, class: "col-lg-4") { b.check_box + b.text }%>
-        <%#end%>
-      </div>
-    <%# end %>
-  </div>-->
-
-
-  <div class="row form-group">
-    <%images = @camp.images.select{|i| i.image_type == 'bar'}%>
-    <%(0..2).each do |i|%>
-      <div class="col-lg-4" style="overflow: hidden">
-        <%if images[i].present?%>
-          <%=image_tag images[i].image_url(:medium)%><br/>
-          <div class="row">
-            <div class="col-lg-12">
-              <%=link_to "Delete", images[i], :method => "delete"%>
-            </div>
-          </div>
-        <%else%>
-          <%image = Image.new%>
-          <%= f.fields_for :images, @camp.images.build do |image_f| %>
-            <%= image_f.hidden_field :image_type, :value => "bar"%>
-            <%= image_f.hidden_field :camp_id, :value => @camp.id%>
-            <%= image_f.label :image_url, "Image File" %>
-            <%= image_f.file_field :image_url%>
-            <div class="actions">
-              <%= image_f.submit %>
-            </div>
-          <% end %>
+        <%if @camp.images.select{|i| i.image_type == 'bsy'}.count < 3%>
+          <p><b><em>If you have images that are showing up on your listing, that isn't here in the edit area, its because the system is using default images from the Book A Retreat website. When you add images here it will show on your page.</em></b></p>
         <%end%>
       </div>
-    <%end%>
+      <%images = @camp.images.select{|i| i.image_type == 'bsy'}%>
+      <%(0..2).each do |i|%>
+        <div class="col-lg-4" style="text-align: left">
+          <%if images[i].present?%>
+            <%=image_tag images[i].image_url(:medium)%><br/>
+            <div class="row">
+              <div class="col-lg-12">
+                <%=link_to "Delete", images[i], :method => "delete"%>
+              </div>
+            </div>
+          <%else%>
+            <%image = Image.new%>
+            <%= f.fields_for :images, @camp.images.build do |image_f| %>
+              <%= image_f.hidden_field :image_type, :value => "bsy"%>
+              <%= image_f.hidden_field :camp_id, :value => @camp.id%>
+              <%= image_f.label :image_url, "Picture #{i+1}" %>
+              <%= image_f.file_field :image_url, :style=>"form-control"%>
+              <div class="actions">
+                <%= image_f.submit %>
+              </div>
+            <% end %>
+          <%end%>
+        </div>
+      <%end%>
+    </div>
+  <%end%>
+
+  <div class="row form-group">
+    <div class="col-lg-12">
+      <%=f.submit "Update Camp", :style=>"display: block", :class=>"btn btn-default"%>
+    </div>
   </div>
 
-  <!--<div class="row form-group">
-    <%#= f.fields_for :images do |builder| %>
-      <div class="col-lg-4">
-        <%#= builder.hidden_field :image_type, :value => "bar"%>
-        <%#= builder.label :image_url, "Image File" %>
-        <%#= builder.file_field :image_url%>
-      </div>
-    <%# end %>
-  </div>-->
 <% end %>
