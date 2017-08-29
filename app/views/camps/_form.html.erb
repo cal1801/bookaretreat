@@ -87,11 +87,11 @@
       <div class="col-lg-12">
         <p>The three pictures you submit below will be automatically cropped square for your listing (please do not choose panoramic shots). To have more control over the cropping please edit the photo to be square before uploading. Since this website deals with potential summer campers, it would beneficial if these pictures focused on what your program has to offer. Picture #1 will be the dominant image used with your listing in the directory.</p>
 
-        <%if @camp.images.select{|i| i.image_type == 'bsy'}.count < 3%>
+        <%if @camp.images.select{|i| i.image_type == 'pccca'}.count < 3%>
           <p><b><em>If you have images that are showing up on your listing, that isn't here in the edit area, its because the system is using default images from the Book A Retreat website. When you add images here it will show on your page.</em></b></p>
         <%end%>
       </div>
-      <%images = @camp.images.select{|i| i.image_type == 'bsy'}%>
+      <%images = @camp.images.select{|i| i.image_type == 'pccca'}%>
       <%(0..2).each do |i|%>
         <div class="col-lg-4" style="text-align: left">
           <%if images[i].present?%>
@@ -104,7 +104,7 @@
           <%else%>
             <%image = Image.new%>
             <%= f.fields_for :images, @camp.images.build do |image_f| %>
-              <%= image_f.hidden_field :image_type, :value => "bsy"%>
+              <%= image_f.hidden_field :image_type, :value => "pccca"%>
               <%= image_f.hidden_field :camp_id, :value => @camp.id%>
               <%= image_f.label :image_url, "Picture #{i+1}" %>
               <%= image_f.file_field :image_url, :style=>"form-control"%>

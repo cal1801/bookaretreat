@@ -1,7 +1,7 @@
 class CampsController < ApplicationController
   #before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
   before_action :states_var
-  before_action :set_camp, only: [:show, :edit, :update, :destroy]
+  before_action :set_camp, only: [:show, :edit, :update, :destroy, :update_value]
   before_action :fix_state, only: [:search]
 
 
@@ -15,6 +15,9 @@ class CampsController < ApplicationController
     end
 
     @camps.select!{|c| c.site_setup.hotel >= params[:hotel].to_i &&  c.site_setup.group_local_bath >= params[:group_local_bath].to_i &&  c.site_setup.group_sep_bath >= params[:group_sep_bath].to_i &&  c.site_setup.rustic >= params[:rustic].to_i &&  c.site_setup.rv >= params[:rv].to_i}
+    @camps.select!{|c| c.bar}
+
+    @farther_camps.select!{|c| c.bar}
 
     @hash = Gmaps4rails.build_markers(@all_addresses) do |address, marker|
       marker.lat address.lat
@@ -153,9 +156,19 @@ class CampsController < ApplicationController
     end
   end
 
-  def update_membership
+  def update_value
+    case params[:value]
+      when "bar"
+        @camp.bar = params[:change_to] == "true" ? true : false
+      when "str"
+        @camp.str = params[:change_to] == "true" ? true : false
+      when "bsy"
+        @camp.bsy = params[:change_to] == "true" ? true : false
+      when "member"
+        @camp.pccca_member = params[:change_to] == "true" ? true : false
+    end
     respond_to do |format|
-      if @camp.update_column('pccca_member', params[:change_to])
+      if @camp.save
         format.html { render :nothing => true, json: @camp, notice: 'Camp was successfully updated.' }
         format.json { render json: @camp, status: :ok }
       else
