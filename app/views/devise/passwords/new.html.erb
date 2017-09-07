@@ -1,20 +1,48 @@
-<div class="flex-container">
-  <div class="item">
-    <h2>Need a password?</h2>
+<% content_for :head do %>
+  <style>
+    body {
+      background-color: white;
+    }
+  </style>
+<%end%>
+<div class="container row flex-container">
+  <div class="item col-md-6 col-md-offset-3">
+    <div style="text-align: center">
+      <%=image_tag "bar", :style=>"max-height: 120px;"%>
+    </div>
+    <h2>Need Login Instructions?</h2>
+    <p>When you choose your center and click the button above, the login instructions will be sent to the email address associated with your listing. If you don't receive an email from the system, please contact Cal Findeiss at <a style="text-decoration: underline" href="mailto:callanfindeiss@gmail.com">callanfindeiss@gmail.com</a> so he can change your primary email address.</p>
 
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= devise_error_messages! %>
 
-      <div class="form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
-      </div>
+      <%select_hash = {}%>
+      <%Camp.all.order(:name).each do |camp|%>
+        <%select_hash[camp.name] = camp.try(:contact).try(:email)%>
+      <%end%>
 
       <div class="form-group">
-        <%= f.submit "Send me password instructions", class:"btn btn-success", style:"margin-left: 0" %>
+        <%= label_tag "Camps"%><br />
+        <%= select_tag "camp", options_from_collection_for_select(select_hash, :last, :first), :prompt => "Select your center", :class => "form-control"%>
+      </div>
+
+      <div id="email_text" class="form-group" style="display: none;">The email address for your center is: <br/><br/><b><span id="email_field"></span></b><br/></div>
+
+      <%= f.hidden_field :email%>
+
+      <div class="form-group">
+        <%= f.submit "Send me login instructions", class:"btn btn-success", style:"margin-left: 0; display: block" %>
       </div>
     <% end %>
 
     <%= render "devise/shared/links" %>
   </div>
 </div>
+
+<script>
+  $("#camp").change(function() {
+    $("#email_text").show();
+    $("#email_field").html($(this).val());
+    $("#user_email").val($(this).val());
+  })
+</script>
