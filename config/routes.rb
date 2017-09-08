@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '*path' => redirect('/')
+
   get 'sitemap.xml', :to => 'sitemap#index', :defaults => { :format => 'xml' }
 
   # The priority is based on order of creation: first created -> highest priority.
