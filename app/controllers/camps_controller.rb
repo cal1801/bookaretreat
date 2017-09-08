@@ -39,10 +39,8 @@ class CampsController < ApplicationController
     if @states.select{|state, abv| state.upcase == params[:state].upcase}
       state = @states.select{|state, abv| abv.upcase == params[:state].upcase}
       full_state = state.empty? ? params[:state] : state[0][0]
-      byebug
       addresses = Address.where(state: params[:state])
       @camps = addresses.map{|a| a.camp}.sort_by{|c| addresses.map(&:id)}
-      byebug
       farther_addresses = Address.near(full_state, 300).order("distance")
 
       farther_addresses.uniq
