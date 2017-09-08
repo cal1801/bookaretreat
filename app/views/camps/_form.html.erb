@@ -57,6 +57,32 @@
 
   <%end%>
 
+  <%=f.fields_for :site_setup do |a|%>
+    <div class="row form-group" style="text-align: left">
+      <div class="col-lg-2">
+        <%= a.label :hotel %><br />
+        <%= a.text_field :hotel, {:class => 'col-lg-12 form-control'} %>
+      </div>
+      <div class="col-lg-2">
+        <%= a.label :group_local_bath %><br />
+        <%= a.text_field :group_local_bath, :class => 'col-lg-12 form-control' %>
+      </div>
+      <div class="col-lg-2">
+        <%= a.label :group_sep_bath %><br />
+        <%= a.text_field :group_sep_bath, :class => 'col-lg-12 form-control' %>
+      </div>
+      <div class="col-lg-2">
+        <%= a.label :rustic %><br />
+        <%= a.text_field :rustic, :class => 'col-lg-12 form-control' %>
+      </div>
+      <div class="col-lg-2">
+        <%= a.label :rv %><br />
+        <%= a.text_field :rv, :class => 'col-lg-12 form-control' %>
+      </div>
+    </div>
+  <%end%>
+
+
   <div class="row form-group" style="text-align: left">
     <div class="col-lg-12">
       <p>Best Summer Yet is a tool for helping potential campers and parents find your summer program. We suggest that you keep your description short and to the point (you are limited to 250 words), so potential campers will click through to your website for more information. For the description in the box below, you can include specifics like dates, programs, and/or the summer theme. Just keep in mind that you will need to login again to make any necessary changes (during this season or before next summer).</p>
