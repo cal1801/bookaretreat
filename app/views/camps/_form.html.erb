@@ -91,7 +91,9 @@
         <p><b><em>If you have text that is showing up on your listing, that isn't here in the edit area, its because the system is using default text from the Book A Retreat website. When you fill in your description here it will show on your page.</em></b></p>
       <%end%>
 
-      <%= f.text_area :camp_desc, rows: 10, :class => 'col-lg-12 form-control' %>
+      <%=f.fields_for :camp_info do |ci|%>
+        <%= ci.text_area :description, rows: 10, :class => 'col-lg-12 form-control'%>
+      <%end%>
     </div>
     <div class="col-lg-12 mtl">
       <p>For the website URL, we suggest providing a link that takes a visitor straight to your summer camp page (so they don't have to hunt for it on your website). If your URL doesn't change from year to year (yourcamp.org/summer-camp instead of summercamp2017), it will keep you from having to login next time to make changes.</p>

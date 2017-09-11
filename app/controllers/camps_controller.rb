@@ -109,12 +109,14 @@ class CampsController < ApplicationController
     @camp = Camp.new
     @camp.build_address
     @camp.build_site_setup
+    @camp.build_camp_info
     3.times {@camp.images.build}
   end
 
   # GET /camps/1/edit
   def edit
     3.times {@camp.images.build} if @camp.images.blank?
+    @camp.build_camp_info if @camp.camp_info.nil?
   end
 
   # POST /camps
@@ -276,7 +278,8 @@ class CampsController < ApplicationController
       params.require(:camp).permit(:name, :contact_id, :web_url, :pccca_member, :site_setup_id, :camp_desc, :camp_url, :staff_desc, :staff_url,
         images_attributes: [:image_url, :image_type, :camp_id],
         address_attributes: [:address, :address2, :city, :state, :zip, :camp_id],
-        site_setup_attributes: [:hotel, :group_local_bath, :group_sep_bath, :rustic, :rv]
+        site_setup_attributes: [:hotel, :group_local_bath, :group_sep_bath, :rustic, :rv],
+        camp_info_attributes: [:description]
       )
     end
 end

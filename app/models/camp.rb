@@ -7,7 +7,7 @@ class Camp < ActiveRecord::Base
   belongs_to :contact
   has_one :site_setup
   has_many :images, :dependent => :destroy
-  has_many :camp_infos
+  has_one :camp_info
 
-  accepts_nested_attributes_for :images, :site_setup, :address
+  accepts_nested_attributes_for :images, :site_setup, :address, :camp_info
 end
