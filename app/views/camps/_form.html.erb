@@ -57,31 +57,51 @@
 
   <%end%>
 
+  <p>Splitting all the lodging options provided by our sites into categories is not an easy task. We ask that you do your best to “squeeze” your current accommodations into these categories. You do not need to worry about losing a potential retreat group because you were one bed short in a particular category. The search engine will also list those sites that are close to meeting the needs of the website visitor.</p>
   <%=f.fields_for :site_setup do |a|%>
-    <div class="row form-group" style="text-align: left">
+    <div class="row" style="text-align: left">
       <div class="col-lg-2">
-        <%= a.label :hotel %><br />
         <%= a.text_field :hotel, {:class => 'col-lg-12 form-control'} %>
       </div>
+      <div class="col-lg-10" style="padding-top: 8px">
+        <%= a.label :hotel, 'Hotel/Motel-type housing with private bathrooms' %><br />
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-2">
-        <%= a.label :group_local_bath %><br />
         <%= a.text_field :group_local_bath, :class => 'col-lg-12 form-control' %>
       </div>
+      <div class="col-lg-10" style="padding-top: 8px">
+        <%= a.label :group_local_bath, 'Group housing with shared bathrooms in the same building' %><br />
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-2">
-        <%= a.label :group_sep_bath %><br />
         <%= a.text_field :group_sep_bath, :class => 'col-lg-12 form-control' %>
       </div>
+      <div class="col-lg-10" style="padding-top: 8px">
+        <%= a.label :group_sep_bath, 'Group housing with bathroom facilities in a nearby/separate building' %><br />
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-2">
-        <%= a.label :rustic %><br />
         <%= a.text_field :rustic, :class => 'col-lg-12 form-control' %>
       </div>
+      <div class="col-lg-10" style="padding-top: 8px">
+        <%= a.label :rustic, 'Rustic Housing (screened cabins, tepees, platform tents, hogans, etc.) with bathroom facilities in a nearby/separate building' %><br />
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-2">
-        <%= a.label :rv %><br />
         <%= a.text_field :rv, :class => 'col-lg-12 form-control' %>
+      </div>
+      <div class="col-lg-10" style="padding-top: 8px">
+        <%= a.label :rv, 'RV or Tent Sites (number of sites) with bathroom facilities in a nearby/separate building' %><br />
       </div>
     </div>
   <%end%>
 
+  <div style="height: 20px"></div>
 
   <div class="row form-group" style="text-align: left">
     <div class="col-lg-12">
