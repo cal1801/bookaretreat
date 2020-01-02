@@ -2,6 +2,6 @@ class SiteSetup < ActiveRecord::Base
   belongs_to :camp
 
   def housing_exists
-    hotel > 0 || group_local_bath > 0 || group_sep_bath > 0 || rustic > 0 || rv > 0
+    hotel.to_i > 0 || group_local_bath.to_i > 0 || group_sep_bath.to_i > 0 || rustic.to_i > 0 || rv.to_i > 0
   end
 end
