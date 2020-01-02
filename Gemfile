@@ -23,7 +23,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+gem 'sprockets', '~> 3.7', '>= 3.7.2'
 gem 'geocoder'
 gem 'gmaps4rails'
 # Use ActiveModel has_secure_password
